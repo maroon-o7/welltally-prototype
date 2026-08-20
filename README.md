@@ -12,6 +12,8 @@ Sample entries and an active fasting timer reset when the page reloads. The appe
 
 The Today greeting follows the device's local clock. The **Weekly insight** preference shows or hides the **What stands out** section. Health-category selectors are interactive demonstrations only and begin unselected; they do not request real Apple Health access in Safari.
 
+Prototype confirmation messages remain visible for four seconds and use a dedicated high-contrast surface in dark appearance.
+
 The production iPhone app is intended to keep health records on the user's device, request Apple Health categories individually, avoid location and product-analytics telemetry, and offer user-controlled encrypted backups.
 
 ## Test on an iPhone
