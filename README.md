@@ -8,7 +8,9 @@ Use sample data only. This public web prototype does not connect to Apple Health
 
 First-run tracking and Apple Health choices intentionally begin unselected. After setup, the prototype loads a labeled sample dashboard so every feature remains available for testing; those sample cards do not imply that permission was granted.
 
-Sample entries and an active fasting timer reset when the page reloads. The appearance preference is the only prototype setting retained by the browser. Automatic measurement units use the browser device's region when available. Setup uses manual height and weight entry, while the optional calculators accept metric, pounds, or stone-and-pounds inputs.
+Sample entries and an active fasting timer reset when the page reloads. The appearance preference is the only prototype setting retained by the browser. Automatic measurement units use the browser device's region when available. Setup and the optional calculators accept metric, pounds, or stone-and-pounds input; the setup height fields remain feet and inches when stone-and-pounds is selected.
+
+The Today greeting follows the device's local clock. The **Weekly insight** preference shows or hides the **What stands out** section. Health-category selectors are interactive demonstrations only and begin unselected; they do not request real Apple Health access in Safari.
 
 The production iPhone app is intended to keep health records on the user's device, request Apple Health categories individually, avoid location and product-analytics telemetry, and offer user-controlled encrypted backups.
 

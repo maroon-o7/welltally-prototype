@@ -73,6 +73,22 @@ html[data-theme="dark"] .trial-actions .restore{background:rgba(255,255,255,.12)
 html[data-theme="dark"] .trial-actions .buy,html[data-theme="dark"] .metric.done .check,html[data-theme="dark"] .fast-day.active{color:#111813}
 html[data-theme="dark"] .onboard-back{border-color:#486052;background:#213129;color:#edf3ef}
 html[data-theme="dark"] .grabber{background:#425148}
+.health-choice{cursor:pointer;opacity:1;transition:background .18s ease}
+.health-choice:hover{background:#f8fbf9}
+.health-choice i{border:1.5px solid var(--line);background:transparent;color:transparent}
+.health-choice.active{background:#f4faf6}
+.health-choice.active i{border-color:var(--accent);background:var(--accent);color:#fff}
+#weeklyInsightsSection[hidden]{display:none!important}
+html[data-theme="dark"] .health-choice:hover,html[data-theme="dark"] .health-choice.active{background:#1c2b23}
+html[data-theme="dark"] .health-choice i{border-color:#526159;background:transparent;color:transparent}
+html[data-theme="dark"] .health-choice.active i{border-color:var(--accent);background:var(--accent);color:#111813}
+html[data-theme="dark"] input.field,html[data-theme="dark"] select.field,html[data-theme="dark"] textarea.field,html[data-theme="dark"] .mini-select{color:#edf3ef;-webkit-text-fill-color:#edf3ef;caret-color:var(--lime)}
+html[data-theme="dark"] .field::placeholder{color:#91a199;-webkit-text-fill-color:#91a199;opacity:1}
+html[data-theme="dark"] select.field option,html[data-theme="dark"] .mini-select option{background:#141d18;color:#edf3ef}
+html[data-theme="dark"] .trial-lock{background:#213129;color:var(--lime)}
+html[data-theme="dark"] .trial-price{border:1px solid var(--line);background:#1c2b23}
+html[data-theme="dark"] .trial-price strong{color:#edf3ef}
+@media(max-width:520px){input.field,select.field,textarea.field,.mini-select{font-size:16px}}
 </style>
 </head>
 <body>
@@ -163,6 +179,7 @@ html[data-theme="dark"] .grabber{background:#425148}
 <label class="setup-row">Measurement units<select class="field" id="onboardUnits">
 <option value="automatic">Automatic for this device</option>
 <option value="imperial">Imperial</option>
+<option value="stone">Stone / lb</option>
 <option value="metric">Metric</option>
 </select>
 </label>
@@ -177,6 +194,16 @@ html[data-theme="dark"] .grabber{background:#425148}
 </div>
 <label class="setup-row setup-unit-field" id="onboardImperialWeight">Weight (lb) · optional<input class="field" id="onboardWeightLb" type="text" inputmode="decimal" autocomplete="off" placeholder="Type a value">
 </label>
+<div class="setup-row setup-unit-field" id="onboardStoneWeight" hidden>
+<span>Weight · optional</span>
+<div class="manual-pair">
+<label class="field-label">Stone<input class="field" id="onboardWeightStone" type="text" inputmode="numeric" autocomplete="off" placeholder="e.g. 13">
+</label>
+<label class="field-label">Remaining lb<input class="field" id="onboardWeightStonePounds" type="text" inputmode="decimal" autocomplete="off" placeholder="e.g. 4.4">
+</label>
+</div>
+<span class="field-help">One stone equals 14 pounds.</span>
+</div>
 <label class="setup-row setup-unit-field" id="onboardMetricHeight" hidden>Height (cm) · optional<input class="field" id="onboardHeightCm" type="text" inputmode="decimal" autocomplete="off" placeholder="e.g. 188">
 </label>
 <label class="setup-row setup-unit-field" id="onboardMetricWeight" hidden>Weight (kg) · optional<input class="field" id="onboardWeightKg" type="text" inputmode="decimal" autocomplete="off" placeholder="Type a value">
@@ -445,6 +472,7 @@ html[data-theme="dark"] .grabber{background:#425148}
 <span>Today</span>
 </div>
 </article>
+<div id="weeklyInsightsSection">
 <div class="section-head">
 <h2>What stands out</h2>
 <button id="explainInsights">How this works</button>
@@ -471,6 +499,7 @@ html[data-theme="dark"] .grabber{background:#425148}
 <p>You met 5 or more goals on 12 of the last 14 days—your best period yet.</p>
 </div>
 </article>
+</div>
 </div>
 </section>
 
@@ -717,6 +746,7 @@ html[data-theme="dark"] .grabber{background:#425148}
 <select class="mini-select" id="unitPreference" aria-label="Measurement units">
 <option value="automatic">Automatic</option>
 <option value="imperial">Imperial</option>
+<option value="stone">Stone / lb</option>
 <option value="metric">Metric</option>
 </select>
 </div>
@@ -745,9 +775,9 @@ html[data-theme="dark"] .grabber{background:#425148}
 <div class="metric-icon">✦</div>
 <div>
 <h3>Weekly insight</h3>
-<p>Calculated locally from your entries</p>
+<p>Shows or hides “What stands out”</p>
 </div>
-<button class="toggle on" role="switch" aria-checked="true" aria-label="Weekly insight">
+<button class="toggle on" id="weeklyInsightToggle" role="switch" aria-checked="true" aria-label="Show What stands out insights" aria-controls="weeklyInsightsSection">
 </button>
 </div>
 <div class="setting">
@@ -1299,6 +1329,22 @@ document.getElementById('explainInsights').onclick=function(){toast('Insights co
     return document.getElementById(id);
   }
 
+  function greetingForHour(hour) {
+    if (hour < 12) return "Good morning.";
+    if (hour < 17) return "Good afternoon.";
+    return "Good evening.";
+  }
+
+  function updateTimeGreeting() {
+    byId("today-title").textContent = greetingForHour(new Date().getHours());
+  }
+
+  updateTimeGreeting();
+  window.setInterval(updateTimeGreeting, 60000);
+  document.addEventListener("visibilitychange", function () {
+    if (!document.hidden) updateTimeGreeting();
+  });
+
   function announce(message) {
     var toast = byId("toast");
     toast.textContent = message;
@@ -1343,6 +1389,16 @@ document.getElementById('explainInsights').onclick=function(){toast('Insights co
   if (appearanceMedia.addEventListener) appearanceMedia.addEventListener("change", appearanceChangeHandler);
   else if (appearanceMedia.addListener) appearanceMedia.addListener(appearanceChangeHandler);
   applyAppearance(savedAppearance(), false);
+
+  var weeklyInsightToggle = byId("weeklyInsightToggle");
+  weeklyInsightToggle.onclick = null;
+  weeklyInsightToggle.addEventListener("click", function () {
+    var enabled = !weeklyInsightToggle.classList.contains("on");
+    weeklyInsightToggle.classList.toggle("on", enabled);
+    weeklyInsightToggle.setAttribute("aria-checked", enabled ? "true" : "false");
+    byId("weeklyInsightsSection").hidden = !enabled;
+    announce(enabled ? "What stands out insights are on." : "What stands out insights are off.");
+  });
 
   var privacyModal = byId("privacyModal");
   byId("openPrivacyDetails").addEventListener("click", function () {
@@ -1415,8 +1471,9 @@ document.getElementById('explainInsights').onclick=function(){toast('Insights co
   };
 
   document.querySelectorAll(".health-choice").forEach(function (button) {
+    button.onclick = null;
     button.addEventListener("click", function () {
-      var selected = button.classList.contains("active");
+      var selected = !button.classList.contains("active");
       var name = healthChoiceName(button);
       document.querySelectorAll(".health-choice").forEach(function (peer) {
         if (healthChoiceName(peer) === name) setHealthChoice(peer, selected);
@@ -1451,7 +1508,7 @@ document.getElementById('explainInsights').onclick=function(){toast('Insights co
       setHealthChoice(button, false);
     });
     ["onboardHeightFeet", "onboardHeightInches", "onboardWeightLb",
-      "onboardHeightCm", "onboardWeightKg"].forEach(function (id) {
+      "onboardWeightStone", "onboardWeightStonePounds", "onboardHeightCm", "onboardWeightKg"].forEach(function (id) {
       byId(id).value = "";
       byId(id).removeAttribute("aria-invalid");
     });
@@ -1488,15 +1545,25 @@ document.getElementById('explainInsights').onclick=function(){toast('Insights co
       navigator.language || "en-US";
     var match = locale.match(/[-_]([A-Z]{2})\b/i);
     var region = match ? match[1].toUpperCase() : "US";
+    if (region === "GB") return "stone";
     return ["US", "LR", "MM"].includes(region) ? "imperial" : "metric";
   }
 
   function updateOnboardUnitFields() {
-    var metric = displayedUnitSystem() === "metric";
+    var system = displayedUnitSystem();
+    var metric = system === "metric";
+    var stone = system === "stone";
     byId("onboardImperialHeight").hidden = metric;
-    byId("onboardImperialWeight").hidden = metric;
+    byId("onboardImperialWeight").hidden = metric || stone;
+    byId("onboardStoneWeight").hidden = !stone;
     byId("onboardMetricHeight").hidden = !metric;
     byId("onboardMetricWeight").hidden = !metric;
+  }
+
+  function unitSystemLabel(system) {
+    if (system === "metric") return "Metric";
+    if (system === "stone") return "Stone / lb";
+    return "Imperial";
   }
 
   function manualNumber(id) {
@@ -1506,6 +1573,16 @@ document.getElementById('explainInsights').onclick=function(){toast('Insights co
 
   function compactNumber(value) {
     return Number(value.toFixed(1)).toString();
+  }
+
+  function stoneLabelFromPounds(pounds) {
+    var stones = Math.floor(pounds / 14);
+    var remaining = pounds - stones * 14;
+    if (Number(remaining.toFixed(1)) >= 14) {
+      stones += 1;
+      remaining = 0;
+    }
+    return stones + " st " + compactNumber(remaining);
   }
 
   function setInvalid(ids, invalid) {
@@ -1628,7 +1705,6 @@ document.getElementById('explainInsights').onclick=function(){toast('Insights co
   function installRegionalUnitHandling() {
     var settingsSelect = byId("unitPreference");
     var onboardingSelect = byId("onboardUnits");
-    var originalSettingsHandler = settingsSelect.onchange;
     var originalOnboardingHandler = onboardingSelect.onchange;
 
     function applyRequested(source, shouldAnnounce) {
@@ -1641,11 +1717,14 @@ document.getElementById('explainInsights').onclick=function(){toast('Insights co
         settingsSelect.value = "automatic";
         onboardingSelect.value = "automatic";
         if (shouldAnnounce) {
-          announce("Automatic units: " + (resolved === "metric" ? "Metric" : "Imperial") + " for this device.");
+          announce("Automatic units: " + unitSystemLabel(resolved) + " for this device.");
         }
       } else if (source === settingsSelect) {
         prototypeUnitSystem = requested;
-        originalSettingsHandler.call(settingsSelect);
+        onboardingSelect.value = requested;
+        originalOnboardingHandler.call(onboardingSelect);
+        settingsSelect.value = requested;
+        if (shouldAnnounce) announce(unitSystemLabel(requested) + " units selected.");
       } else {
         prototypeUnitSystem = requested;
         originalOnboardingHandler.call(onboardingSelect);
@@ -1735,13 +1814,16 @@ document.getElementById('explainInsights').onclick=function(){toast('Insights co
 
   var localWeightValues = {
     imperial: { value: "186.4", unit: "lb", detail: "↓ 3.2 lb in 30 days" },
+    stone: { value: "13 st 4.4", unit: "lb", detail: "↓ 3.2 lb in 30 days" },
     metric: { value: "84.6", unit: "kg", detail: "↓ 1.5 kg in 30 days" }
   };
 
   function applySetupValues() {
-    var metric = displayedUnitSystem() === "metric";
+    var system = displayedUnitSystem();
+    var metric = system === "metric";
+    var stone = system === "stone";
     var allSetupIds = ["onboardHeightFeet", "onboardHeightInches", "onboardWeightLb",
-      "onboardHeightCm", "onboardWeightKg"];
+      "onboardWeightStone", "onboardWeightStonePounds", "onboardHeightCm", "onboardWeightKg"];
     setInvalid(allSetupIds, false);
 
     var measurements = calculatorMeasurements("bmi", byId("bmiUnitMode").value, true) ||
@@ -1770,7 +1852,6 @@ document.getElementById('explainInsights').onclick=function(){toast('Insights co
       var feetRaw = byId("onboardHeightFeet").value.trim();
       var inchesRaw = byId("onboardHeightInches").value.trim();
       heightProvided = feetRaw !== "" || inchesRaw !== "";
-      weightProvided = byId("onboardWeightLb").value.trim() !== "";
       if (heightProvided) {
         var feet = manualNumber("onboardHeightFeet");
         var inches = inchesRaw === "" ? 0 : manualNumber("onboardHeightInches");
@@ -1779,7 +1860,24 @@ document.getElementById('explainInsights').onclick=function(){toast('Insights co
         if (validHeight) measurements.heightCm = (feet * 12 + inches) * 2.54;
         else setInvalid(["onboardHeightFeet", "onboardHeightInches"], true);
       }
-      if (weightProvided) {
+
+      if (stone) {
+        var stoneRaw = byId("onboardWeightStone").value.trim();
+        var stonePoundsRaw = byId("onboardWeightStonePounds").value.trim();
+        weightProvided = stoneRaw !== "" || stonePoundsRaw !== "";
+        if (weightProvided) {
+          var stones = manualNumber("onboardWeightStone");
+          var remainingPounds = stonePoundsRaw === "" ? 0 : manualNumber("onboardWeightStonePounds");
+          validWeight = Number.isInteger(stones) && stones >= 0 &&
+            Number.isFinite(remainingPounds) && remainingPounds >= 0 && remainingPounds < 14 &&
+            stones * 14 + remainingPounds > 0;
+          if (validWeight) measurements.weightKg = (stones * 14 + remainingPounds) / 2.2046226218;
+          else setInvalid(["onboardWeightStone", "onboardWeightStonePounds"], true);
+        }
+      } else {
+        weightProvided = byId("onboardWeightLb").value.trim() !== "";
+      }
+      if (!stone && weightProvided) {
         var weightLb = manualNumber("onboardWeightLb");
         validWeight = Number.isFinite(weightLb) && weightLb > 0;
         if (validWeight) measurements.weightKg = weightLb / 2.2046226218;
@@ -1796,6 +1894,9 @@ document.getElementById('explainInsights').onclick=function(){toast('Insights co
       var pounds = measurements.weightKg * 2.2046226218;
       localWeightValues.imperial = {
         value: pounds.toFixed(1), unit: "lb", detail: "Entered during setup · demo session"
+      };
+      localWeightValues.stone = {
+        value: stoneLabelFromPounds(pounds), unit: "lb", detail: "Entered during setup · demo session"
       };
       localWeightValues.metric = {
         value: measurements.weightKg.toFixed(1), unit: "kg", detail: "Entered during setup · demo session"
@@ -1836,6 +1937,7 @@ document.getElementById('explainInsights').onclick=function(){toast('Insights co
   function renderFeaturedMeasurement() {
     var name = byId("featuredMeasurement").value || "Weight";
     var system = displayedUnitSystem();
+    var measurementSystem = system === "metric" ? "metric" : "imperial";
     var value;
     var unit;
     var detail;
@@ -1846,7 +1948,7 @@ document.getElementById('explainInsights').onclick=function(){toast('Insights co
     } else {
       var card = findMeasurementCard(name);
       if (!card) return;
-      var raw = card.dataset[system] || "";
+      var raw = card.dataset[measurementSystem] || "";
       var match = raw.match(/^(.+?)\s+(in|cm|lb|kg)$/i);
       if (!match) return;
       value = match[1];
@@ -1912,6 +2014,7 @@ document.getElementById('explainInsights').onclick=function(){toast('Insights co
         var pounds = saved.unit === "kg" ? saved.amount * 2.2046226218 : saved.amount;
         var kilograms = saved.unit === "kg" ? saved.amount : saved.amount / 2.2046226218;
         localWeightValues.imperial = { value: pounds.toFixed(1), unit: "lb", detail: "Logged just now · manual" };
+        localWeightValues.stone = { value: stoneLabelFromPounds(pounds), unit: "lb", detail: "Logged just now · manual" };
         localWeightValues.metric = { value: kilograms.toFixed(1), unit: "kg", detail: "Logged just now · manual" };
       } else {
         var card = findMeasurementCard(saved.type);
