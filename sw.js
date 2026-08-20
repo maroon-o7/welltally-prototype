@@ -1,4 +1,4 @@
-const CACHE_NAME = "welltally-prototype-v7";
+const CACHE_NAME = "welltally-prototype-v8";
 const APP_SHELL = [
   "./",
   "./index.html",

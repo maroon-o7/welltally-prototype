@@ -14,6 +14,8 @@ The Today greeting follows the device's local clock. The **Weekly insight** pref
 
 Prototype confirmation messages remain visible for four seconds and use a dedicated high-contrast surface in dark appearance.
 
+The water droplet fills with the current glass count, workout entries use a distinct dumbbell symbol, and newly added habits now honor their selected goal type. Count habits use a target-based minus/plus counter; Complete and self-timed Duration habits use a completion checkmark.
+
 The production iPhone app is intended to keep health records on the user's device, request Apple Health categories individually, avoid location and product-analytics telemetry, and offer user-controlled encrypted backups.
 
 ## Test on an iPhone

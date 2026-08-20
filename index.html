@@ -89,6 +89,14 @@ html[data-theme="dark"] .trial-lock{background:#213129;color:var(--lime)}
 html[data-theme="dark"] .trial-price{border:1px solid var(--line);background:#1c2b23}
 html[data-theme="dark"] .trial-price strong{color:#edf3ef}
 html[data-theme="dark"] .toast{border:1px solid #526159;background:#24332b;color:#f7fbf8;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.summary:after{width:136px;height:136px;right:-58px;bottom:-76px}
+.period-btn{border:1px solid transparent}
+.habit-target-field{margin:-7px 0 17px}
+.habit-target-field[hidden]{display:none!important}
+.water-drop-icon{width:24px;height:24px}
+.water-drop-fill{fill:currentColor;stroke:none;opacity:.58;transition:y .2s ease,height .2s ease}
+html[data-theme="dark"] .period-btn.active{border-color:#8fd0b4;background:#315242;color:#f7fbf8;box-shadow:0 2px 10px rgba(0,0,0,.22)}
+html[data-theme="dark"] .privacy-detail b{border:1px solid #6f9c85;background:#315242;color:var(--accent)}
 @media(max-width:520px){input.field,select.field,textarea.field,.mini-select{font-size:16px}}
 </style>
 </head>
@@ -164,7 +172,7 @@ html[data-theme="dark"] .toast{border:1px solid #526159;background:#24332b;color
 <button class="onboard-choice" type="button" aria-pressed="false">
 <b>☾</b>Sleep</button>
 <button class="onboard-choice" type="button" aria-pressed="false">
-<b>⌁</b>Workouts</button>
+<b><svg class="vector-icon dumbbell-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10v4M6 8v8M9 10v4M15 10v4M18 8v8M21 10v4M6 12h3M9 12h6M15 12h3"/></svg></b>Workouts</button>
 <button class="onboard-choice" type="button" aria-pressed="false">
 <b><svg class="vector-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M8.5 6.5 12 3l3.5 3.5M8.5 17.5 12 21l3.5-3.5"/></svg></b>Measurements</button>
 <button class="onboard-choice" type="button" aria-pressed="false">
@@ -226,7 +234,7 @@ html[data-theme="dark"] .toast{border:1px solid #526159;background:#24332b;color
 <i>✓</i>
 </button>
 <button class="health-choice" type="button" aria-pressed="false">
-<b>⌁</b>
+<b><svg class="vector-icon dumbbell-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10v4M6 8v8M9 10v4M15 10v4M18 8v8M21 10v4M6 12h3M9 12h6M15 12h3"/></svg></b>
 <span>
 <strong>Workouts</strong>
 <span>Type, duration, and completion</span>
@@ -368,7 +376,7 @@ html[data-theme="dark"] .toast{border:1px solid #526159;background:#24332b;color
 <button class="check" type="button" aria-label="Mark sleep incomplete">✓</button>
 </article>
 <article class="metric" id="waterMetric" data-progress="62.5" data-base-progress="62.5">
-<div class="metric-icon blue">◒</div>
+<div class="metric-icon blue" aria-hidden="true"><svg class="vector-icon water-drop-icon" viewBox="0 0 24 24"><defs><clipPath id="waterDropClip"><path d="M12 2.5S5.5 10.1 5.5 14.5a6.5 6.5 0 0 0 13 0C18.5 10.1 12 2.5 12 2.5Z" fill="#000" stroke="none"/></clipPath></defs><rect class="water-drop-fill" id="waterDropFill" x="4" y="9.5" width="16" height="12.5" clip-path="url(#waterDropClip)"/><path d="M12 2.5S5.5 10.1 5.5 14.5a6.5 6.5 0 0 0 13 0C18.5 10.1 12 2.5 12 2.5Z"/></svg></div>
 <div class="metric-copy">
 <div class="metric-title">Water</div>
 <div class="metric-value">
@@ -384,7 +392,7 @@ html[data-theme="dark"] .toast{border:1px solid #526159;background:#24332b;color
 </div>
 </article>
 <article class="metric" data-progress="0" data-base-progress="0">
-<div class="metric-icon orange">⌁</div>
+<div class="metric-icon orange"><svg class="vector-icon dumbbell-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10v4M6 8v8M9 10v4M15 10v4M18 8v8M21 10v4M6 12h3M9 12h6M15 12h3"/></svg></div>
 <div class="metric-copy">
 <div class="metric-title">Workout <span class="auto">Sample</span>
 </div>
@@ -831,7 +839,7 @@ html[data-theme="dark"] .toast{border:1px solid #526159;background:#24332b;color
 <h3>Delete local data</h3>
 <p>Remove every record stored by welltally</p>
 </div>
-<button class="data-action" id="deleteLocalData" type="button">Delete…</button>
+<button class="data-action" id="deleteLocalData" type="button">Delete</button>
 </div>
 </div>
 <p class="data-note">Deleting the app may delete its local data. welltally can help you make a backup, but never receives or stores it.</p>
@@ -1003,7 +1011,7 @@ html[data-theme="dark"] .toast{border:1px solid #526159;background:#24332b;color
 <i>✓</i>
 </button>
 <button class="health-choice" type="button" aria-pressed="false" data-health-scope="activity">
-<b>⌁</b>
+<b><svg class="vector-icon dumbbell-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10v4M6 8v8M9 10v4M15 10v4M18 8v8M21 10v4M6 12h3M9 12h6M15 12h3"/></svg></b>
 <span>
 <strong>Workouts</strong>
 <span>Read type and duration</span>
@@ -1087,11 +1095,15 @@ html[data-theme="dark"] .toast{border:1px solid #526159;background:#24332b;color
 <p>Start with a simple goal. You can add detail later.</p>
 <input class="field" id="habitName" aria-label="Habit name" placeholder="e.g. Stretch for 10 minutes">
 <div class="goal-types">
-<button class="goal-type active">Complete</button>
-<button class="goal-type">Count</button>
-<button class="goal-type">Duration</button>
+<button class="goal-type active" data-habit-type="complete" type="button" aria-pressed="true">Complete</button>
+<button class="goal-type" data-habit-type="count" type="button" aria-pressed="false">Count</button>
+<button class="goal-type" data-habit-type="duration" type="button" aria-pressed="false">Duration</button>
 </div>
-<button class="primary" id="saveHabit">Add to today</button>
+<label class="field-label habit-target-field" id="habitCountTargetField" hidden>Daily count target<input class="field" id="habitCountTarget" type="text" inputmode="numeric" autocomplete="off" placeholder="e.g. 8">
+</label>
+<label class="field-label habit-target-field" id="habitDurationTargetField" hidden>Duration goal (minutes)<input class="field" id="habitDurationTarget" type="text" inputmode="numeric" autocomplete="off" placeholder="e.g. 20">
+</label>
+<button class="primary" id="saveHabit" type="button">Add to today</button>
 </div>
 </div>
 <div class="modal-wrap" id="measureModal" role="dialog" aria-modal="true" aria-labelledby="measureModalTitle">
@@ -2066,12 +2078,145 @@ document.getElementById('explainInsights').onclick=function(){toast('Insights co
     byId("summaryCopy").textContent = "Your completed and partial goals add up to " + value + "% today. No goal can count more than 100%.";
   }
 
+  var habitTypeButtons = Array.from(document.querySelectorAll("#modal [data-habit-type]"));
+
+  function selectedHabitType() {
+    var active = habitTypeButtons.find(function (button) {
+      return button.classList.contains("active");
+    });
+    return active ? active.dataset.habitType : "complete";
+  }
+
+  function updateHabitTargetFields() {
+    var type = selectedHabitType();
+    byId("habitCountTargetField").hidden = type !== "count";
+    byId("habitDurationTargetField").hidden = type !== "duration";
+  }
+
+  habitTypeButtons.forEach(function (button) {
+    button.onclick = null;
+    button.addEventListener("click", function () {
+      habitTypeButtons.forEach(function (peer) {
+        peer.classList.toggle("active", peer === button);
+        peer.setAttribute("aria-pressed", peer === button ? "true" : "false");
+      });
+      updateHabitTargetFields();
+    });
+  });
+
+  [byId("habitCountTarget"), byId("habitDurationTarget")].forEach(function (input) {
+    input.addEventListener("input", function () {
+      input.removeAttribute("aria-invalid");
+    });
+  });
+
+  function addedHabitCheck(metric, name) {
+    var button = metric.querySelector(".check");
+    button.addEventListener("click", function () {
+      var completed = !metric.classList.contains("done");
+      metric.classList.toggle("done", completed);
+      metric.dataset.progress = completed ? "100" : "0";
+      metric.querySelector(".progress").style.setProperty("--p", completed ? "100%" : "0%");
+      button.setAttribute("aria-label", "Mark " + name + (completed ? " incomplete" : " complete"));
+      updatePrototypeScore();
+      announce(completed ? name + " completed." : name + " moved back to incomplete.");
+    });
+  }
+
+  function createAddedHabit(name, type, target) {
+    var metric = document.createElement("article");
+    metric.className = "metric";
+    metric.dataset.progress = "0";
+    metric.dataset.baseProgress = "0";
+    metric.dataset.habitType = type;
+    metric.innerHTML = '<div class="metric-icon">＋</div>' +
+      '<div class="metric-copy"><div class="metric-title"></div><div class="metric-value"></div>' +
+      '<div class="progress" style="--p:0%"><i></i></div></div>';
+    metric.querySelector(".metric-title").textContent = name;
+    var value = metric.querySelector(".metric-value");
+
+    if (type === "count") {
+      var count = 0;
+      value.textContent = "0 of " + target + " today";
+      var controls = document.createElement("div");
+      controls.className = "stepper habit-counter";
+      var minus = document.createElement("button");
+      var plus = document.createElement("button");
+      minus.type = plus.type = "button";
+      minus.textContent = "−";
+      plus.textContent = "+";
+      minus.setAttribute("aria-label", "Subtract one from " + name);
+      plus.setAttribute("aria-label", "Add one to " + name);
+      controls.append(minus, plus);
+      function setCount(next) {
+        var wasComplete = count >= target;
+        count = Math.max(0, next);
+        var progress = Math.min(100, count / target * 100);
+        metric.dataset.progress = String(progress);
+        metric.querySelector(".progress").style.setProperty("--p", progress + "%");
+        metric.classList.toggle("done", count >= target);
+        value.textContent = count + " of " + target + " today";
+        updatePrototypeScore();
+        if (!wasComplete && count >= target) announce(name + " count goal complete.");
+      }
+      minus.addEventListener("click", function () { setCount(count - 1); });
+      plus.addEventListener("click", function () { setCount(count + 1); });
+      metric.appendChild(controls);
+    } else {
+      value.textContent = type === "duration"
+        ? target + (target === 1 ? " minute" : " minutes") + " · self-timed"
+        : "Added just now · completion goal";
+      var check = document.createElement("button");
+      check.className = "check";
+      check.type = "button";
+      check.setAttribute("aria-label", "Mark " + name + " complete");
+      check.textContent = "✓";
+      metric.appendChild(check);
+      addedHabitCheck(metric, name);
+    }
+    return metric;
+  }
+
+  byId("saveHabit").onclick = null;
+  byId("saveHabit").addEventListener("click", function () {
+    var name = byId("habitName").value.trim() || "New health habit";
+    var type = selectedHabitType();
+    var targetInput = type === "count" ? byId("habitCountTarget") : byId("habitDurationTarget");
+    var target = type === "complete" ? 0 : Number(targetInput.value.trim());
+    if (type !== "complete" && (!Number.isInteger(target) || target <= 0)) {
+      targetInput.setAttribute("aria-invalid", "true");
+      targetInput.focus();
+      announce(type === "count" ? "Enter a whole-number count target." : "Enter a whole-number duration in minutes.");
+      return;
+    }
+
+    byId("metricList").appendChild(createAddedHabit(name, type, target));
+    byId("habitName").value = "";
+    byId("habitCountTarget").value = "";
+    byId("habitDurationTarget").value = "";
+    habitTypeButtons.forEach(function (button) {
+      var active = button.dataset.habitType === "complete";
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-pressed", active ? "true" : "false");
+    });
+    updateHabitTargetFields();
+    byId("modal").classList.remove("open");
+    document.querySelector('.nav-btn[data-screen="today"]').click();
+    updatePrototypeScore();
+    announce(name + " added to today.");
+  });
+
+  updateHabitTargetFields();
+
   function setPrototypeWater(value) {
     demoWater = Math.max(0, value);
     var progress = Math.min(100, demoWater / 8 * 100);
     var metric = byId("waterMetric");
     byId("waterValue").textContent = String(demoWater);
     byId("waterProgress").style.setProperty("--p", progress + "%");
+    var fillHeight = progress / 100 * 20;
+    byId("waterDropFill").setAttribute("y", String(22 - fillHeight));
+    byId("waterDropFill").setAttribute("height", String(fillHeight));
     metric.dataset.progress = String(progress);
     metric.classList.toggle("done", demoWater >= 8);
     if (demoWater === 8) announce("Water goal complete.");
