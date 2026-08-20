@@ -168,7 +168,7 @@ html[data-theme="dark"] .privacy-detail b{border:1px solid #6f9c85;background:#3
 <button class="onboard-choice" type="button" aria-pressed="false">
 <b>☷</b>Habits & routines</button>
 <button class="onboard-choice" type="button" aria-pressed="false">
-<b>↗</b>Steps & distance</button>
+<b><svg class="vector-icon sneaker-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h3.2l3.4 4.7a5.4 5.4 0 0 0 3.4 2.1l4.4.8a3.1 3.1 0 0 1 2.6 3.1v.3a2 2 0 0 1-2 2H5.2A3.2 3.2 0 0 1 2 15.3v-.8c0-.9.5-1.7 1.3-2.1L5 11.5v-6Z"/><path d="m8.7 9.2-2 1.7m4.4.2-2 1.7M3 15.3h18.7"/></svg></b>Steps & distance</button>
 <button class="onboard-choice" type="button" aria-pressed="false">
 <b>☾</b>Sleep</button>
 <button class="onboard-choice" type="button" aria-pressed="false">
@@ -176,7 +176,7 @@ html[data-theme="dark"] .privacy-detail b{border:1px solid #6f9c85;background:#3
 <button class="onboard-choice" type="button" aria-pressed="false">
 <b><svg class="vector-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M8.5 6.5 12 3l3.5 3.5M8.5 17.5 12 21l3.5-3.5"/></svg></b>Measurements</button>
 <button class="onboard-choice" type="button" aria-pressed="false">
-<b>●</b>Energy check-ins</button>
+<b><svg class="vector-icon bolt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m13.5 2-8 11h6l-1 9 8-12h-6l1-8Z"/></svg></b>Energy check-ins</button>
 </div>
 <p class="prototype-note">Nothing is selected for you. After setup, this prototype still loads a clearly labeled sample dashboard so every feature remains testable.</p>
 </article>
@@ -226,7 +226,7 @@ html[data-theme="dark"] .privacy-detail b{border:1px solid #6f9c85;background:#3
 <p class="onboard-lede">Nothing is selected initially. These controls simulate the native permission choices; Safari cannot access Apple Health.</p>
 <div class="health-list">
 <button class="health-choice" type="button" aria-pressed="false">
-<b>↗</b>
+<b><svg class="vector-icon sneaker-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h3.2l3.4 4.7a5.4 5.4 0 0 0 3.4 2.1l4.4.8a3.1 3.1 0 0 1 2.6 3.1v.3a2 2 0 0 1-2 2H5.2A3.2 3.2 0 0 1 2 15.3v-.8c0-.9.5-1.7 1.3-2.1L5 11.5v-6Z"/><path d="m8.7 9.2-2 1.7m4.4.2-2 1.7M3 15.3h18.7"/></svg></b>
 <span>
 <strong>Steps & distance</strong>
 <span>Daily totals and weekly mileage</span>
@@ -252,16 +252,8 @@ html[data-theme="dark"] .privacy-detail b{border:1px solid #6f9c85;background:#3
 <button class="health-choice" type="button" aria-pressed="false">
 <b><svg class="vector-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M8.5 6.5 12 3l3.5 3.5M8.5 17.5 12 21l3.5-3.5"/></svg></b>
 <span>
-<strong>Weight & height</strong>
+<strong>Height, waist, &amp; weight</strong>
 <span>Optional physical measurements</span>
-</span>
-<i>✓</i>
-</button>
-<button class="health-choice" type="button" aria-pressed="false">
-<b>⌖</b>
-<span>
-<strong>Waist circumference</strong>
-<span>Optional when available</span>
 </span>
 <i>✓</i>
 </button>
@@ -350,7 +342,7 @@ html[data-theme="dark"] .privacy-detail b{border:1px solid #6f9c85;background:#3
 </div>
 <div class="metric-list" id="metricList">
 <article class="metric" data-progress="78" data-base-progress="78">
-<div class="metric-icon green">↗</div>
+<div class="metric-icon green"><svg class="vector-icon sneaker-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h3.2l3.4 4.7a5.4 5.4 0 0 0 3.4 2.1l4.4.8a3.1 3.1 0 0 1 2.6 3.1v.3a2 2 0 0 1-2 2H5.2A3.2 3.2 0 0 1 2 15.3v-.8c0-.9.5-1.7 1.3-2.1L5 11.5v-6Z"/><path d="m8.7 9.2-2 1.7m4.4.2-2 1.7M3 15.3h18.7"/></svg></div>
 <div class="metric-copy">
 <div class="metric-title">Steps & distance <span class="auto">Sample</span>
 </div>
@@ -405,7 +397,7 @@ html[data-theme="dark"] .privacy-detail b{border:1px solid #6f9c85;background:#3
 <button class="check" type="button" aria-label="Mark workout complete">✓</button>
 </article>
 <article class="metric" id="energyMetric" data-progress="0" data-base-progress="0">
-<div class="metric-icon">●</div>
+<div class="metric-icon"><svg class="vector-icon bolt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m13.5 2-8 11h6l-1 9 8-12h-6l1-8Z"/></svg></div>
 <div class="metric-copy">
 <div class="metric-title">Energy check-in <span class="auto">Sample</span></div>
 <div class="metric-value" id="energyCheckValue">How are you feeling?</div>
@@ -1003,7 +995,7 @@ html[data-theme="dark"] .privacy-detail b{border:1px solid #6f9c85;background:#3
 <p id="healthIntro">These controls preview category-level choices. Safari cannot read Apple Health; the native app would process approved data on-device.</p>
 <div class="health-list">
 <button class="health-choice" type="button" aria-pressed="false" data-health-scope="activity">
-<b>↗</b>
+<b><svg class="vector-icon sneaker-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5.5h3.2l3.4 4.7a5.4 5.4 0 0 0 3.4 2.1l4.4.8a3.1 3.1 0 0 1 2.6 3.1v.3a2 2 0 0 1-2 2H5.2A3.2 3.2 0 0 1 2 15.3v-.8c0-.9.5-1.7 1.3-2.1L5 11.5v-6Z"/><path d="m8.7 9.2-2 1.7m4.4.2-2 1.7M3 15.3h18.7"/></svg></b>
 <span>
 <strong>Steps & distance</strong>
 <span>Read daily totals</span>
@@ -1029,16 +1021,8 @@ html[data-theme="dark"] .privacy-detail b{border:1px solid #6f9c85;background:#3
 <button class="health-choice" type="button" aria-pressed="false" data-health-scope="measurement">
 <b><svg class="vector-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M8.5 6.5 12 3l3.5 3.5M8.5 17.5 12 21l3.5-3.5"/></svg></b>
 <span>
-<strong>Weight & height</strong>
-<span>Read approved measurements</span>
-</span>
-<i>✓</i>
-</button>
-<button class="health-choice" type="button" aria-pressed="false" data-health-scope="measurement">
-<b>⌖</b>
-<span>
-<strong>Waist circumference</strong>
-<span>Read when available</span>
+<strong>Height, waist, &amp; weight</strong>
+<span>Optional physical measurements</span>
 </span>
 <i>✓</i>
 </button>
@@ -1447,7 +1431,7 @@ document.getElementById('explainInsights').onclick=function(){toast('Insights co
       ? selected.size + (selected.size === 1 ? " category selected" : " categories selected")
       : "Not connected";
     var measurementStatus = byId("measurementTrackingStatus");
-    var measurementEnabled = selected.has("Weight & height") || selected.has("Waist circumference");
+    var measurementEnabled = selected.has("Height, waist, & weight");
     measurementStatus.textContent = measurementEnabled ? "Health enabled" : "Manual";
     measurementStatus.classList.toggle("health-enabled", measurementEnabled);
   }
@@ -1465,7 +1449,7 @@ document.getElementById('explainInsights').onclick=function(){toast('Insights co
       button.hidden = measurementsOnly && button.dataset.healthScope !== "measurement";
     });
     byId("healthSafetyNote").textContent = measurementsOnly
-      ? "Weight, height, and waist are the supported measurement categories shown here. The real iPhone app would request each permission through Apple’s system sheet."
+      ? "Height, waist, and weight are grouped here for clarity. The real iPhone app would still request each supported permission through Apple’s system sheet."
       : "The real iPhone app would show Apple’s system permission sheet after your choices. Manual entry remains available for every item.";
     byId("clearHealthInModal").textContent = measurementsOnly
       ? "Use manual measurements only"
