@@ -36,6 +36,13 @@ button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .health-enabled{color:var(--accent)}
 .prototype-session-note{margin-top:10px;color:var(--muted);font-size:10px;line-height:1.5}
 .reminder-time{margin:12px 0 16px}
+.manual-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.manual-pair .field-label{min-width:0}
+.calculator-unit-select{margin:10px 0 4px}.calculator-fields{margin-top:8px}
+#calculateBmi,#calculateEnergy{margin-top:12px}
+.calculator-fields[hidden],.setup-unit-field[hidden]{display:none!important}
+input[type="number"]{-moz-appearance:textfield}
+input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
 
 /* Comfortable prototype sizing. Native controls will additionally use Dynamic Type. */
 .avatar,.back-btn,.check{width:44px;height:44px}
@@ -64,6 +71,7 @@ html[data-theme="dark"] .web-demo-note{border-color:#315242;background:#17271f}h
 html[data-theme="dark"] .progress,html[data-theme="dark"] .onboard-progress i{background:#2b3630}html[data-theme="dark"] .chart .grid{stroke:#2f3b34}
 html[data-theme="dark"] .trial-actions .restore{background:rgba(255,255,255,.12)}html[data-theme="dark"] .data-action,html[data-theme="dark"] .tool-action,html[data-theme="dark"] .secondary{background:#213129;color:var(--accent)}
 html[data-theme="dark"] .trial-actions .buy,html[data-theme="dark"] .metric.done .check,html[data-theme="dark"] .fast-day.active{color:#111813}
+html[data-theme="dark"] .onboard-back{border-color:#486052;background:#213129;color:#edf3ef}
 html[data-theme="dark"] .grabber{background:#425148}
 </style>
 </head>
@@ -158,9 +166,20 @@ html[data-theme="dark"] .grabber{background:#425148}
 <option value="metric">Metric</option>
 </select>
 </label>
-<label class="setup-row"><span id="onboardHeightLabel">Height (in) · optional</span><input class="field" id="onboardHeight" type="number" min="0.1" step="0.1" inputmode="decimal" placeholder="Skip or enter a value">
+<div class="setup-row setup-unit-field" id="onboardImperialHeight">
+<span>Height · optional</span>
+<div class="manual-pair">
+<label class="field-label">Feet<input class="field" id="onboardHeightFeet" type="text" inputmode="numeric" autocomplete="off" placeholder="e.g. 6">
 </label>
-<label class="setup-row"><span id="onboardWeightLabel">Weight (lb) · optional</span><input class="field" id="onboardWeight" type="number" min="0.1" step="0.1" inputmode="decimal" placeholder="Skip or enter a value">
+<label class="field-label">Inches<input class="field" id="onboardHeightInches" type="text" inputmode="decimal" autocomplete="off" placeholder="e.g. 2">
+</label>
+</div>
+</div>
+<label class="setup-row setup-unit-field" id="onboardImperialWeight">Weight (lb) · optional<input class="field" id="onboardWeightLb" type="text" inputmode="decimal" autocomplete="off" placeholder="Type a value">
+</label>
+<label class="setup-row setup-unit-field" id="onboardMetricHeight" hidden>Height (cm) · optional<input class="field" id="onboardHeightCm" type="text" inputmode="decimal" autocomplete="off" placeholder="e.g. 188">
+</label>
+<label class="setup-row setup-unit-field" id="onboardMetricWeight" hidden>Weight (kg) · optional<input class="field" id="onboardWeightKg" type="text" inputmode="decimal" autocomplete="off" placeholder="Type a value">
 </label>
 </div>
 <p class="prototype-note">Age is requested only when you use the optional resting-energy calculator.</p>
@@ -257,7 +276,6 @@ html[data-theme="dark"] .grabber{background:#425148}
 </div>
 <h1 id="today-title">Good morning.</h1>
 </div>
-<button class="avatar" data-go="settings" aria-label="Open settings"><svg class="vector-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.1 3h3.8l.5 2.1c.6.2 1.2.4 1.7.7l1.8-1.1 2.7 2.7-1.1 1.8c.3.5.5 1.1.7 1.7l2.1.5v3.8l-2.1.5c-.2.6-.4 1.2-.7 1.7l1.1 1.8-2.7 2.7-1.8-1.1c-.5.3-1.1.5-1.7.7l-.5 2.1h-3.8l-.5-2.1c-.6-.2-1.2-.4-1.7-.7l-1.8 1.1-2.7-2.7 1.1-1.8c-.3-.5-.5-1.1-.7-1.7l-2.1-.5v-3.8l2.1-.5c.2-.6.4-1.2.7-1.7L3.4 7.4l2.7-2.7 1.8 1.1c.5-.3 1.1-.5 1.7-.7L10.1 3Z"/><circle cx="12" cy="12" r="3.2"/></svg></button>
 </header>
 <article class="summary">
 <div class="summary-row">
@@ -380,7 +398,6 @@ html[data-theme="dark"] .grabber{background:#425148}
 <div class="eyebrow">Your data</div>
 <h1 id="trends-title">Trends</h1>
 </div>
-<button class="avatar" data-go="settings" aria-label="Open settings"><svg class="vector-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.1 3h3.8l.5 2.1c.6.2 1.2.4 1.7.7l1.8-1.1 2.7 2.7-1.1 1.8c.3.5.5 1.1.7 1.7l2.1.5v3.8l-2.1.5c-.2.6-.4 1.2-.7 1.7l1.1 1.8-2.7 2.7-1.8-1.1c-.5.3-1.1.5-1.7.7l-.5 2.1h-3.8l-.5-2.1c-.6-.2-1.2-.4-1.7-.7l-1.8 1.1-2.7-2.7 1.1-1.8c-.3-.5-.5-1.1-.7-1.7l-2.1-.5v-3.8l2.1-.5c.2-.6.4-1.2.7-1.7L3.4 7.4l2.7-2.7 1.8 1.1c.5-.3 1.1-.5 1.7-.7L10.1 3Z"/><circle cx="12" cy="12" r="3.2"/></svg></button>
 </header>
 <div class="periods" role="tablist">
 <button class="period-btn" data-period="7D">7D</button>
@@ -463,7 +480,6 @@ html[data-theme="dark"] .grabber{background:#425148}
 <div class="eyebrow">Goals & routines</div>
 <h1 id="plan-title">Your plan</h1>
 </div>
-<button class="avatar" data-go="settings" aria-label="Open settings"><svg class="vector-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.1 3h3.8l.5 2.1c.6.2 1.2.4 1.7.7l1.8-1.1 2.7 2.7-1.1 1.8c.3.5.5 1.1.7 1.7l2.1.5v3.8l-2.1.5c-.2.6-.4 1.2-.7 1.7l1.1 1.8-2.7 2.7-1.8-1.1c-.5.3-1.1.5-1.7.7l-.5 2.1h-3.8l-.5-2.1c-.6-.2-1.2-.4-1.7-.7l-1.8 1.1-2.7-2.7 1.1-1.8c-.3-.5-.5-1.1-.7-1.7l-2.1-.5v-3.8l2.1-.5c.2-.6.4-1.2.7-1.7L3.4 7.4l2.7-2.7 1.8 1.1c.5-.3 1.1-.5 1.7-.7L10.1 3Z"/><circle cx="12" cy="12" r="3.2"/></svg></button>
 </header>
 <article class="plan-card">
 <div class="routine-head">
@@ -539,7 +555,6 @@ html[data-theme="dark"] .grabber{background:#425148}
 <div class="eyebrow">Private body log</div>
 <h1 id="measurements-title">Measurements</h1>
 </div>
-<button class="avatar" data-go="settings" aria-label="Open settings"><svg class="vector-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.1 3h3.8l.5 2.1c.6.2 1.2.4 1.7.7l1.8-1.1 2.7 2.7-1.1 1.8c.3.5.5 1.1.7 1.7l2.1.5v3.8l-2.1.5c-.2.6-.4 1.2-.7 1.7l1.1 1.8-2.7 2.7-1.8-1.1c-.5.3-1.1.5-1.7.7l-.5 2.1h-3.8l-.5-2.1c-.6-.2-1.2-.4-1.7-.7l-1.8 1.1-2.7-2.7 1.1-1.8c-.3-.5-.5-1.1-.7-1.7l-2.1-.5v-3.8l2.1-.5c.2-.6.4-1.2.7-1.7L3.4 7.4l2.7-2.7 1.8 1.1c.5-.3 1.1-.5 1.7-.7L10.1 3Z"/><circle cx="12" cy="12" r="3.2"/></svg></button>
 </header>
 <article class="measure-hero">
 <label class="featured-picker">
@@ -833,7 +848,7 @@ html[data-theme="dark"] .grabber{background:#425148}
 </div>
 <button class="back-btn" type="button" data-go="settings" aria-label="Back to settings">‹</button>
 </header>
-<p class="tool-intro">Open only what is useful to you. These tools never affect Daily Progress, and their inputs are processed locally.</p>
+<p class="tool-intro">Open only what is useful to you. These tools never affect Daily Progress, and their inputs are processed locally. Calculator inputs support metric, pounds, and stone-and-pounds.</p>
 <div class="tool-grid">
 <article class="tool-card">
 <div class="tool-top">
@@ -1099,12 +1114,37 @@ html[data-theme="dark"] .grabber{background:#425148}
 </div>
 <h2 id="bmiTitle">BMI estimate</h2>
 <p>A screening reference based only on height and weight.</p>
-<div class="field-row">
-<label class="field-label">Height (in)<input class="field" id="bmiHeight" type="number" inputmode="decimal" min="36" max="96" value="74">
+<label class="field-label calculator-unit-select">Input units<select class="field" id="bmiUnitMode">
+<option value="imperial">Feet, inches &amp; pounds</option>
+<option value="stone">Feet, inches &amp; stone/pounds</option>
+<option value="metric">Centimetres &amp; kilograms</option>
+</select>
 </label>
-<label class="field-label">Weight (lb)<input class="field" id="bmiWeight" type="number" inputmode="decimal" min="0.1" step="0.1" value="186.4">
+<div class="calculator-fields" id="bmiImperialHeightFields">
+<div class="manual-pair">
+<label class="field-label">Height (ft)<input class="field" id="bmiHeightFeet" type="text" inputmode="numeric" autocomplete="off" value="6">
+</label>
+<label class="field-label">Height (in)<input class="field" id="bmiHeightInches" type="text" inputmode="decimal" autocomplete="off" value="2">
 </label>
 </div>
+</div>
+<label class="field-label calculator-fields" id="bmiMetricHeightField" hidden>Height (cm)<input class="field" id="bmiHeightCm" type="text" inputmode="decimal" autocomplete="off" value="188">
+</label>
+<label class="field-label calculator-fields" id="bmiPoundsField">Weight (lb)<input class="field" id="bmiPounds" type="text" inputmode="decimal" autocomplete="off" value="186.4">
+</label>
+<div class="calculator-fields" id="bmiStoneFields" hidden>
+<div class="manual-pair">
+<label class="field-label">Weight (st)<input class="field" id="bmiStone" type="text" inputmode="numeric" autocomplete="off" value="13">
+</label>
+<label class="field-label">Remaining lb<input class="field" id="bmiStonePounds" type="text" inputmode="decimal" autocomplete="off" value="4.4">
+</label>
+</div>
+<span class="field-help">One stone equals 14 pounds.</span>
+</div>
+<label class="field-label calculator-fields" id="bmiKilogramsField" hidden>Weight (kg)<input class="field" id="bmiKilograms" type="text" inputmode="decimal" autocomplete="off" value="84.6">
+</label>
+<input id="bmiHeight" type="hidden" value="74">
+<input id="bmiWeight" type="hidden" value="186.4">
 <button class="primary" id="calculateBmi" type="button">Calculate estimate</button>
 <div class="result-box" id="bmiResult" hidden>
 <strong id="bmiNumber">—</strong>
@@ -1122,16 +1162,40 @@ html[data-theme="dark"] .grabber{background:#425148}
 </div>
 <h2 id="energyTitle">Resting energy estimate</h2>
 <p>An estimate of energy used at rest—not a daily calorie target.</p>
-<div class="field-row">
-<label class="field-label">Age<input class="field" id="energyAge" type="number" inputmode="numeric" min="18" step="1" value="35">
+<label class="field-label">Age<input class="field" id="energyAge" type="text" inputmode="numeric" autocomplete="off" value="35">
 </label>
-<label class="field-label">Height (in)<input class="field" id="energyHeight" type="number" inputmode="decimal" min="36" max="96" value="74">
+<label class="field-label calculator-unit-select">Input units<select class="field" id="energyUnitMode">
+<option value="imperial">Feet, inches &amp; pounds</option>
+<option value="stone">Feet, inches &amp; stone/pounds</option>
+<option value="metric">Centimetres &amp; kilograms</option>
+</select>
+</label>
+<div class="calculator-fields" id="energyImperialHeightFields">
+<div class="manual-pair">
+<label class="field-label">Height (ft)<input class="field" id="energyHeightFeet" type="text" inputmode="numeric" autocomplete="off" value="6">
+</label>
+<label class="field-label">Height (in)<input class="field" id="energyHeightInches" type="text" inputmode="decimal" autocomplete="off" value="2">
 </label>
 </div>
-<label class="field-label">Weight (lb)<input class="field" id="energyWeight" type="number" inputmode="decimal" min="0.1" step="0.1" value="186.4">
-</label>
-<div style="height:9px">
 </div>
+<label class="field-label calculator-fields" id="energyMetricHeightField" hidden>Height (cm)<input class="field" id="energyHeightCm" type="text" inputmode="decimal" autocomplete="off" value="188">
+</label>
+<label class="field-label calculator-fields" id="energyPoundsField">Weight (lb)<input class="field" id="energyPounds" type="text" inputmode="decimal" autocomplete="off" value="186.4">
+</label>
+<div class="calculator-fields" id="energyStoneFields" hidden>
+<div class="manual-pair">
+<label class="field-label">Weight (st)<input class="field" id="energyStone" type="text" inputmode="numeric" autocomplete="off" value="13">
+</label>
+<label class="field-label">Remaining lb<input class="field" id="energyStonePounds" type="text" inputmode="decimal" autocomplete="off" value="4.4">
+</label>
+</div>
+<span class="field-help">One stone equals 14 pounds.</span>
+</div>
+<label class="field-label calculator-fields" id="energyKilogramsField" hidden>Weight (kg)<input class="field" id="energyKilograms" type="text" inputmode="decimal" autocomplete="off" value="84.6">
+</label>
+<input id="energyHeight" type="hidden" value="74">
+<input id="energyWeight" type="hidden" value="186.4">
+<div style="height:9px"></div>
 <label class="field-label">Equation setting<select class="field" id="energyProfile">
 <option value="range">Show both estimates as a range</option>
 <option value="female">Use female constant</option>
@@ -1386,8 +1450,11 @@ document.getElementById('explainInsights').onclick=function(){toast('Insights co
     document.querySelectorAll(".onboard-choice,.health-choice").forEach(function (button) {
       setHealthChoice(button, false);
     });
-    byId("onboardHeight").value = "";
-    byId("onboardWeight").value = "";
+    ["onboardHeightFeet", "onboardHeightInches", "onboardWeightLb",
+      "onboardHeightCm", "onboardWeightKg"].forEach(function (id) {
+      byId(id).value = "";
+      byId(id).removeAttribute("aria-invalid");
+    });
     updateHealthStatus();
   });
 
@@ -1400,11 +1467,10 @@ document.getElementById('explainInsights').onclick=function(){toast('Insights co
     }
   });
 
+  var prototypeUnitSystem = "imperial";
+
   function displayedUnitSystem() {
-    var label = byId("bmiHeight").closest("label");
-    return label && label.firstChild && label.firstChild.nodeValue.indexOf("cm") !== -1
-      ? "metric"
-      : "imperial";
+    return prototypeUnitSystem;
   }
 
   function clearCalculatorCaps() {
@@ -1412,7 +1478,7 @@ document.getElementById('explainInsights').onclick=function(){toast('Insights co
       var input = byId(id);
       input.removeAttribute("max");
       input.min = "0.1";
-      input.step = "0.1";
+      input.step = "any";
     });
     byId("energyAge").removeAttribute("max");
   }
@@ -1425,11 +1491,139 @@ document.getElementById('explainInsights').onclick=function(){toast('Insights co
     return ["US", "LR", "MM"].includes(region) ? "imperial" : "metric";
   }
 
-  function updateOnboardUnitLabels() {
+  function updateOnboardUnitFields() {
     var metric = displayedUnitSystem() === "metric";
-    byId("onboardHeightLabel").textContent = "Height (" + (metric ? "cm" : "in") + ") · optional";
-    byId("onboardWeightLabel").textContent = "Weight (" + (metric ? "kg" : "lb") + ") · optional";
+    byId("onboardImperialHeight").hidden = metric;
+    byId("onboardImperialWeight").hidden = metric;
+    byId("onboardMetricHeight").hidden = !metric;
+    byId("onboardMetricWeight").hidden = !metric;
   }
+
+  function manualNumber(id) {
+    var raw = byId(id).value.trim().replace(",", ".");
+    return raw === "" ? NaN : Number(raw);
+  }
+
+  function compactNumber(value) {
+    return Number(value.toFixed(1)).toString();
+  }
+
+  function setInvalid(ids, invalid) {
+    ids.forEach(function (id) {
+      if (invalid) byId(id).setAttribute("aria-invalid", "true");
+      else byId(id).removeAttribute("aria-invalid");
+    });
+  }
+
+  function calculatorMeasurements(tool, mode, quiet) {
+    var selectedMode = mode || byId(tool + "UnitMode").value;
+    var heightCm;
+    var weightKg;
+    var heightIds;
+    var weightIds;
+    var validHeight = false;
+    var validWeight = false;
+
+    if (selectedMode === "metric") {
+      heightIds = [tool + "HeightCm"];
+      weightIds = [tool + "Kilograms"];
+      heightCm = manualNumber(heightIds[0]);
+      weightKg = manualNumber(weightIds[0]);
+      validHeight = Number.isFinite(heightCm) && heightCm > 0;
+      validWeight = Number.isFinite(weightKg) && weightKg > 0;
+    } else {
+      heightIds = [tool + "HeightFeet", tool + "HeightInches"];
+      var feet = manualNumber(heightIds[0]);
+      var inches = byId(heightIds[1]).value.trim() === "" ? 0 : manualNumber(heightIds[1]);
+      validHeight = Number.isInteger(feet) && feet >= 0 &&
+        Number.isFinite(inches) && inches >= 0 && inches < 12 && feet * 12 + inches > 0;
+      heightCm = validHeight ? (feet * 12 + inches) * 2.54 : NaN;
+
+      if (selectedMode === "stone") {
+        weightIds = [tool + "Stone", tool + "StonePounds"];
+        var stone = manualNumber(weightIds[0]);
+        var stonePounds = byId(weightIds[1]).value.trim() === "" ? 0 : manualNumber(weightIds[1]);
+        validWeight = Number.isInteger(stone) && stone >= 0 &&
+          Number.isFinite(stonePounds) && stonePounds >= 0 && stonePounds < 14 &&
+          stone * 14 + stonePounds > 0;
+        weightKg = validWeight ? (stone * 14 + stonePounds) / 2.2046226218 : NaN;
+      } else {
+        weightIds = [tool + "Pounds"];
+        var pounds = manualNumber(weightIds[0]);
+        validWeight = Number.isFinite(pounds) && pounds > 0;
+        weightKg = validWeight ? pounds / 2.2046226218 : NaN;
+      }
+    }
+
+    setInvalid(heightIds, !validHeight && !quiet);
+    setInvalid(weightIds, !validWeight && !quiet);
+    if (!validHeight || !validWeight) {
+      if (!quiet) {
+        announce(selectedMode === "metric"
+          ? "Enter positive centimetre and kilogram values."
+          : selectedMode === "stone"
+            ? "Enter whole feet, 0–11.9 inches, whole stones, and 0–13.9 remaining pounds."
+            : "Enter whole feet, 0–11.9 inches, and a positive pound value.");
+      }
+      return null;
+    }
+    return { heightCm: heightCm, weightKg: weightKg };
+  }
+
+  function writeCalculatorMeasurements(tool, measurements) {
+    var totalInches = measurements.heightCm / 2.54;
+    var feet = Math.floor(totalInches / 12);
+    var inches = totalInches - feet * 12;
+    var pounds = measurements.weightKg * 2.2046226218;
+    var stone = Math.floor(pounds / 14);
+    var stonePounds = pounds - stone * 14;
+    if (Number(inches.toFixed(1)) >= 12) {
+      feet += 1;
+      inches = 0;
+    }
+    if (Number(stonePounds.toFixed(1)) >= 14) {
+      stone += 1;
+      stonePounds = 0;
+    }
+
+    byId(tool + "HeightFeet").value = String(feet);
+    byId(tool + "HeightInches").value = compactNumber(inches);
+    byId(tool + "HeightCm").value = compactNumber(measurements.heightCm);
+    byId(tool + "Pounds").value = compactNumber(pounds);
+    byId(tool + "Stone").value = String(stone);
+    byId(tool + "StonePounds").value = compactNumber(stonePounds);
+    byId(tool + "Kilograms").value = compactNumber(measurements.weightKg);
+
+    byId(tool + "Height").value = compactNumber(totalInches);
+    byId(tool + "Weight").value = compactNumber(pounds);
+  }
+
+  function setCalculatorMode(tool, mode, convertCurrent) {
+    var select = byId(tool + "UnitMode");
+    var previous = select.dataset.activeMode || select.value;
+    var measurements = convertCurrent ? calculatorMeasurements(tool, previous, true) : null;
+    select.value = mode;
+    select.dataset.activeMode = mode;
+    var metric = mode === "metric";
+    byId(tool + "ImperialHeightFields").hidden = metric;
+    byId(tool + "MetricHeightField").hidden = !metric;
+    byId(tool + "PoundsField").hidden = mode !== "imperial";
+    byId(tool + "StoneFields").hidden = mode !== "stone";
+    byId(tool + "KilogramsField").hidden = !metric;
+    if (measurements) writeCalculatorMeasurements(tool, measurements);
+    byId(tool + "Result").hidden = true;
+  }
+
+  ["bmi", "energy"].forEach(function (tool) {
+    byId(tool + "UnitMode").addEventListener("change", function () {
+      setCalculatorMode(tool, this.value, true);
+    });
+    byId(tool + "Modal").querySelectorAll("input,select").forEach(function (field) {
+      field.addEventListener("input", function () {
+        byId(tool + "Result").hidden = true;
+      });
+    });
+  });
 
   function installRegionalUnitHandling() {
     var settingsSelect = byId("unitPreference");
@@ -1441,6 +1635,7 @@ document.getElementById('explainInsights').onclick=function(){toast('Insights co
       var requested = source.value;
       if (requested === "automatic") {
         var resolved = regionalUnitSystem();
+        prototypeUnitSystem = resolved;
         onboardingSelect.value = resolved;
         originalOnboardingHandler.call(onboardingSelect);
         settingsSelect.value = "automatic";
@@ -1449,13 +1644,17 @@ document.getElementById('explainInsights').onclick=function(){toast('Insights co
           announce("Automatic units: " + (resolved === "metric" ? "Metric" : "Imperial") + " for this device.");
         }
       } else if (source === settingsSelect) {
+        prototypeUnitSystem = requested;
         originalSettingsHandler.call(settingsSelect);
       } else {
+        prototypeUnitSystem = requested;
         originalOnboardingHandler.call(onboardingSelect);
       }
       window.setTimeout(function () {
         clearCalculatorCaps();
-        updateOnboardUnitLabels();
+        updateOnboardUnitFields();
+        setCalculatorMode("bmi", prototypeUnitSystem, true);
+        setCalculatorMode("energy", prototypeUnitSystem, true);
         formatAllMeasurementValues();
         renderFeaturedMeasurement();
       }, 0);
@@ -1481,15 +1680,9 @@ document.getElementById('explainInsights').onclick=function(){toast('Insights co
   }
 
   byId("calculateBmi").onclick = function () {
-    var height = Number(byId("bmiHeight").value);
-    var weight = Number(byId("bmiWeight").value);
-    if (!Number.isFinite(height) || !Number.isFinite(weight) || height <= 0 || weight <= 0) {
-      announce("Enter positive height and weight values.");
-      return;
-    }
-    var result = displayedUnitSystem() === "metric"
-      ? weight / Math.pow(height / 100, 2)
-      : 703 * weight / (height * height);
+    var measurements = calculatorMeasurements("bmi", null, false);
+    if (!measurements) return;
+    var result = measurements.weightKg / Math.pow(measurements.heightCm / 100, 2);
     if (!Number.isFinite(result)) {
       announce("Check the values and displayed units, then try again.");
       return;
@@ -1502,18 +1695,16 @@ document.getElementById('explainInsights').onclick=function(){toast('Insights co
 
   byId("calculateEnergy").onclick = function () {
     var age = Number(byId("energyAge").value);
-    var height = Number(byId("energyHeight").value);
-    var weight = Number(byId("energyWeight").value);
     var profile = byId("energyProfile").value;
-    if (!Number.isFinite(age) || !Number.isInteger(age) || age < 18 ||
-        !Number.isFinite(height) || !Number.isFinite(weight) || height <= 0 || weight <= 0) {
-      announce("Enter a whole-number adult age and positive height and weight values.");
+    if (!Number.isFinite(age) || !Number.isInteger(age) || age < 18) {
+      byId("energyAge").setAttribute("aria-invalid", "true");
+      announce("Enter a whole-number age of 18 or older.");
       return;
     }
-    var metric = displayedUnitSystem() === "metric";
-    var weightKg = metric ? weight : weight / 2.2046226218;
-    var heightCm = metric ? height : height * 2.54;
-    var base = 10 * weightKg + 6.25 * heightCm - 5 * age;
+    byId("energyAge").removeAttribute("aria-invalid");
+    var measurements = calculatorMeasurements("energy", null, false);
+    if (!measurements) return;
+    var base = 10 * measurements.weightKg + 6.25 * measurements.heightCm - 5 * age;
     var female = Math.round(base - 161);
     var male = Math.round(base + 5);
     var implausible = !Number.isFinite(female) || !Number.isFinite(male) ||
@@ -1549,38 +1740,66 @@ document.getElementById('explainInsights').onclick=function(){toast('Insights co
 
   function applySetupValues() {
     var metric = displayedUnitSystem() === "metric";
-    var heightInput = byId("onboardHeight");
-    var weightInput = byId("onboardWeight");
-    var height = Number(heightInput.value);
-    var weight = Number(weightInput.value);
+    var allSetupIds = ["onboardHeightFeet", "onboardHeightInches", "onboardWeightLb",
+      "onboardHeightCm", "onboardWeightKg"];
+    setInvalid(allSetupIds, false);
 
-    heightInput.removeAttribute("aria-invalid");
-    weightInput.removeAttribute("aria-invalid");
+    var measurements = calculatorMeasurements("bmi", byId("bmiUnitMode").value, true) ||
+      { heightCm: 188, weightKg: 84.6 };
+    var heightProvided = false;
+    var weightProvided = false;
+    var validHeight = true;
+    var validWeight = true;
 
-    if (heightInput.value.trim()) {
-      if (Number.isFinite(height) && height > 0) {
-        byId("bmiHeight").value = String(height);
-        byId("energyHeight").value = String(height);
-      } else {
-        heightInput.setAttribute("aria-invalid", "true");
+    if (metric) {
+      heightProvided = byId("onboardHeightCm").value.trim() !== "";
+      weightProvided = byId("onboardWeightKg").value.trim() !== "";
+      if (heightProvided) {
+        var heightCm = manualNumber("onboardHeightCm");
+        validHeight = Number.isFinite(heightCm) && heightCm > 0;
+        if (validHeight) measurements.heightCm = heightCm;
+        else setInvalid(["onboardHeightCm"], true);
+      }
+      if (weightProvided) {
+        var weightKg = manualNumber("onboardWeightKg");
+        validWeight = Number.isFinite(weightKg) && weightKg > 0;
+        if (validWeight) measurements.weightKg = weightKg;
+        else setInvalid(["onboardWeightKg"], true);
+      }
+    } else {
+      var feetRaw = byId("onboardHeightFeet").value.trim();
+      var inchesRaw = byId("onboardHeightInches").value.trim();
+      heightProvided = feetRaw !== "" || inchesRaw !== "";
+      weightProvided = byId("onboardWeightLb").value.trim() !== "";
+      if (heightProvided) {
+        var feet = manualNumber("onboardHeightFeet");
+        var inches = inchesRaw === "" ? 0 : manualNumber("onboardHeightInches");
+        validHeight = Number.isInteger(feet) && feet >= 0 &&
+          Number.isFinite(inches) && inches >= 0 && inches < 12 && feet * 12 + inches > 0;
+        if (validHeight) measurements.heightCm = (feet * 12 + inches) * 2.54;
+        else setInvalid(["onboardHeightFeet", "onboardHeightInches"], true);
+      }
+      if (weightProvided) {
+        var weightLb = manualNumber("onboardWeightLb");
+        validWeight = Number.isFinite(weightLb) && weightLb > 0;
+        if (validWeight) measurements.weightKg = weightLb / 2.2046226218;
+        else setInvalid(["onboardWeightLb"], true);
       }
     }
 
-    if (weightInput.value.trim()) {
-      if (Number.isFinite(weight) && weight > 0) {
-        var pounds = metric ? weight * 2.2046226218 : weight;
-        var kilograms = metric ? weight : weight / 2.2046226218;
-        localWeightValues.imperial = {
-          value: pounds.toFixed(1), unit: "lb", detail: "Entered during setup · demo session"
-        };
-        localWeightValues.metric = {
-          value: kilograms.toFixed(1), unit: "kg", detail: "Entered during setup · demo session"
-        };
-        byId("bmiWeight").value = String(weight);
-        byId("energyWeight").value = String(weight);
-      } else {
-        weightInput.setAttribute("aria-invalid", "true");
-      }
+    if ((heightProvided && validHeight) || (weightProvided && validWeight)) {
+      writeCalculatorMeasurements("bmi", measurements);
+      writeCalculatorMeasurements("energy", measurements);
+    }
+
+    if (weightProvided && validWeight) {
+      var pounds = measurements.weightKg * 2.2046226218;
+      localWeightValues.imperial = {
+        value: pounds.toFixed(1), unit: "lb", detail: "Entered during setup · demo session"
+      };
+      localWeightValues.metric = {
+        value: measurements.weightKg.toFixed(1), unit: "kg", detail: "Entered during setup · demo session"
+      };
     }
 
     renderFeaturedMeasurement();
@@ -1874,7 +2093,7 @@ document.getElementById('explainInsights').onclick=function(){toast('Insights co
   });
 
   installRegionalUnitHandling();
-  updateOnboardUnitLabels();
+  updateOnboardUnitFields();
   syncDialogAccessibility();
   updateFastDaySummary();
 })();

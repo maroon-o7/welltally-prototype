@@ -8,7 +8,7 @@ Use sample data only. This public web prototype does not connect to Apple Health
 
 First-run tracking and Apple Health choices intentionally begin unselected. After setup, the prototype loads a labeled sample dashboard so every feature remains available for testing; those sample cards do not imply that permission was granted.
 
-Sample entries and an active fasting timer reset when the page reloads. The appearance preference is the only prototype setting retained by the browser. Automatic measurement units use the browser device's region when available.
+Sample entries and an active fasting timer reset when the page reloads. The appearance preference is the only prototype setting retained by the browser. Automatic measurement units use the browser device's region when available. Setup uses manual height and weight entry, while the optional calculators accept metric, pounds, or stone-and-pounds inputs.
 
 The production iPhone app is intended to keep health records on the user's device, request Apple Health categories individually, avoid location and product-analytics telemetry, and offer user-controlled encrypted backups.
 
