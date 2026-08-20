@@ -1,0 +1,1887 @@
+<!doctype html>
+<html lang="en-US"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f4f5f1"><meta name="description" content="A private, on-device health log for habits, trends, and body measurements."><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="welltally"><meta name="mobile-web-app-capable" content="yes"><link rel="manifest" href="./manifest.webmanifest"><link rel="apple-touch-icon" href="./apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png"><title>welltally · interactive prototype</title><script>(function(){var choice="system";try{choice=localStorage.getItem("welltallyAppearance")||"system"}catch(error){}document.documentElement.dataset.theme=choice==="system"?(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"):choice})();</script>
+<style>
+:root{color-scheme:light;--ink:#17201c;--muted:#68736d;--line:#dde2dc;--paper:#f4f5f1;--card:#fff;--accent:#225c49;--lime:#c8f168;--blue:#436fca;--orange:#d6793a;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 16% 12%,rgba(200,241,104,.19),transparent 28rem),radial-gradient(circle at 88% 82%,rgba(67,111,202,.14),transparent 30rem),#19231f;color:var(--ink)}button,input,select{font:inherit}button{color:inherit}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid rgba(67,111,202,.35);outline-offset:2px}.stage{min-height:100vh;display:grid;place-items:center;padding:36px 20px}.phone{position:relative;width:min(100%,414px);height:min(874px,calc(100vh - 72px));min-height:670px;overflow:hidden;border:8px solid #0c110f;border-radius:52px;background:var(--paper);box-shadow:0 26px 70px rgba(17,28,22,.22)}.island{position:absolute;z-index:20;top:10px;left:50%;width:112px;height:29px;transform:translateX(-50%);border-radius:18px;background:#0b0d0c}.app{height:100%;overflow:hidden}.screen{display:none;height:100%;overflow-y:auto;scrollbar-width:none;padding:50px 18px 110px}.screen::-webkit-scrollbar{display:none}.screen.active{display:block;animation:fade .2s ease}@keyframes fade{from{opacity:.5;transform:translateY(3px)}}.eyebrow{color:var(--muted);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}.brandline{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}.wordmark{color:var(--accent);font-size:14px;font-weight:850;letter-spacing:-.035em;text-transform:lowercase}h1{margin:4px 0 0;font-size:30px;line-height:1.05;letter-spacing:-.045em}h2{margin:0;font-size:17px;letter-spacing:-.02em}p{margin:0}.topbar{display:flex;justify-content:space-between;align-items:flex-start;margin:6px 2px 20px}.avatar{display:grid;width:38px;height:38px;place-items:center;border:0;border-radius:50%;background:var(--ink);color:#fff;font-weight:800;cursor:pointer}.summary{position:relative;overflow:hidden;padding:19px;border-radius:25px;background:var(--ink);color:#fff}.summary:after{content:"";position:absolute;width:150px;height:150px;right:-55px;bottom:-75px;border-radius:50%;background:var(--lime);opacity:.92}.summary-row{position:relative;z-index:1;display:grid;grid-template-columns:94px 1fr;gap:18px;align-items:center}.score-ring{position:relative;width:94px;height:94px;display:grid;place-items:center}.score-ring svg{position:absolute;inset:0;transform:rotate(-90deg)}.score-ring strong{font-size:27px;letter-spacing:-.05em}.score-ring span{display:block;margin-top:-7px;color:#b8c4be;font-size:10px;text-transform:uppercase;letter-spacing:.08em}.summary h2{font-size:19px;margin-bottom:7px}.summary p{max-width:190px;color:#c6d0cb;font-size:13px;line-height:1.42}.mini-stats{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:15px}.mini-stat{padding:10px 12px;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(255,255,255,.07)}.mini-stat strong{display:block;font-size:15px}.mini-stat span{color:#aab8b1;font-size:10px}.section-head{display:flex;align-items:center;justify-content:space-between;margin:24px 2px 11px}.section-head button{border:0;padding:5px 2px;background:transparent;color:var(--accent);font-size:12px;font-weight:750;cursor:pointer}.metric-list{display:grid;gap:9px}.metric{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:12px;align-items:center;min-height:70px;padding:12px;border:1px solid var(--line);border-radius:19px;background:var(--card)}.metric-icon{display:grid;width:42px;height:42px;place-items:center;border-radius:13px;background:#eef2ed;font-size:18px;font-weight:700}.metric-icon.blue{color:var(--blue);background:#edf2ff}.metric-icon.orange{color:var(--orange);background:#fff2e9}.metric-icon.green{color:var(--accent);background:#e9f5ef}.metric-copy{min-width:0}.metric-title{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:750}.auto{padding:2px 5px;border-radius:5px;background:#edf1ee;color:#748079;font-size:8px;letter-spacing:.06em;text-transform:uppercase}.metric-value{margin-top:3px;color:var(--muted);font-size:11px}.progress{width:100%;height:4px;margin-top:7px;overflow:hidden;border-radius:9px;background:#e8ebe7}.progress i{display:block;width:var(--p);height:100%;border-radius:inherit;background:var(--accent);transition:width .3s}.check,.stepper button{border:0;cursor:pointer}.check{display:grid;width:33px;height:33px;place-items:center;border-radius:50%;background:#edf0ed;color:#8a948e;font-size:17px}.metric.done .check{background:var(--accent);color:#fff}.metric.done .progress i{width:100%!important;background:var(--lime)}.stepper{display:flex;gap:4px}.stepper button{width:32px;height:32px;border-radius:10px;background:#edf1ee;font-size:16px}.bottom-nav{position:absolute;z-index:12;left:12px;right:12px;bottom:11px;display:grid;grid-template-columns:repeat(5,1fr);padding:8px 6px calc(8px + env(safe-area-inset-bottom));border:1px solid rgba(221,226,220,.9);border-radius:23px;background:rgba(255,255,255,.92);box-shadow:0 12px 35px rgba(25,35,31,.12);backdrop-filter:blur(18px)}.nav-btn{display:grid;gap:3px;place-items:center;border:0;padding:7px 2px;border-radius:15px;background:transparent;color:#8a948e;cursor:pointer;font-size:9px;font-weight:650}.nav-btn b{display:grid;width:25px;height:23px;place-items:center;font-size:17px}.nav-btn.active{background:#edf4ef;color:var(--accent)}.periods,.metric-tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}.periods{padding:4px;border-radius:14px;background:#e9ece8;margin:17px 0}.period-btn{flex:1;border:0;padding:8px 10px;border-radius:10px;background:transparent;color:var(--muted);cursor:pointer;font-size:11px;font-weight:700}.period-btn.active{background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(0,0,0,.06)}.metric-tabs{margin:0 -18px 14px;padding:0 18px}.metric-tab{flex:0 0 auto;border:1px solid var(--line);padding:8px 12px;border-radius:99px;background:#fff;color:var(--muted);cursor:pointer;font-size:11px;font-weight:700}.metric-tab.active{border-color:var(--ink);background:var(--ink);color:#fff}.chart-card,.insight-card,.plan-card,.setting-card{border:1px solid var(--line);border-radius:22px;background:#fff}.chart-card{padding:17px}.chart-top{display:flex;justify-content:space-between;align-items:end}.chart-value{font-size:29px;font-weight:820;letter-spacing:-.05em}.chart-value small{color:var(--muted);font-size:12px;font-weight:650;letter-spacing:0}.delta{color:var(--accent);font-size:11px;font-weight:750}.chart{width:100%;height:145px;margin-top:12px;overflow:visible}.chart .grid{stroke:#e8ebe7;stroke-width:1}.chart .line{fill:none;stroke:var(--accent);stroke-linecap:round;stroke-linejoin:round;stroke-width:3}.chart .area{fill:url(#fade)}.chart-labels{display:flex;justify-content:space-between;margin-top:-5px;color:#8c9690;font-size:9px}.insight-stack{display:grid;gap:9px}.insight-card{display:grid;grid-template-columns:38px 1fr;gap:11px;padding:14px}.insight-mark{display:grid;width:38px;height:38px;place-items:center;border-radius:12px;background:#eff5e7;color:var(--accent);font-weight:850}.insight-card h3{margin:0 0 4px;font-size:13px}.insight-card p{color:var(--muted);font-size:11px;line-height:1.45}.routine-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.week{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.day{text-align:center;color:var(--muted);font-size:9px}.day i{display:grid;width:100%;aspect-ratio:1;place-items:center;margin-top:5px;border-radius:50%;background:#edf0ed;color:var(--muted);font-style:normal;font-size:10px}.day.hit i{background:var(--accent);color:#fff}.plan-card{padding:16px;margin-bottom:10px}.plan-title{display:flex;justify-content:space-between;gap:12px}.plan-title strong{font-size:14px}.plan-title span{color:var(--muted);font-size:11px}.habit-row{display:flex;align-items:center;gap:10px;padding-top:12px;margin-top:12px;border-top:1px solid #edf0ed;font-size:12px}.habit-dot{width:9px;height:9px;border-radius:50%;background:var(--accent)}.habit-row span{margin-left:auto;color:var(--muted)}.setting-card{overflow:hidden}.setting{display:grid;grid-template-columns:38px 1fr auto;align-items:center;gap:10px;min-height:65px;padding:10px 14px;border-bottom:1px solid #edf0ed}.setting:last-child{border-bottom:0}.setting h3{margin:0;font-size:13px}.setting p{margin-top:3px;color:var(--muted);font-size:10px}.toggle{position:relative;width:42px;height:25px;border:0;border-radius:99px;background:#cfd5d1;cursor:pointer}.toggle:after{content:"";position:absolute;top:3px;left:3px;width:19px;height:19px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.18);transition:transform .2s}.toggle.on{background:var(--accent)}.toggle.on:after{transform:translateX(17px)}.sync-status{display:inline-flex;align-items:center;gap:5px;color:var(--accent);font-size:10px;font-weight:700}.sync-status:before{content:"";width:6px;height:6px;border-radius:50%;background:#3fa46d}.modal-wrap{position:absolute;z-index:40;inset:0;display:none;align-items:end;background:rgba(11,17,14,.38);backdrop-filter:blur(3px)}.modal-wrap.open{display:flex}.sheet{width:100%;padding:10px 20px 25px;border-radius:28px 28px 0 0;background:#fff;box-shadow:0 -14px 40px rgba(0,0,0,.13)}.grabber{width:38px;height:4px;margin:0 auto 20px;border-radius:4px;background:#dce1dd}.sheet h2{font-size:21px}.sheet p{margin:5px 0 17px;color:var(--muted);font-size:12px}.field{width:100%;border:1px solid var(--line);padding:13px 14px;border-radius:14px;background:#f8f9f7}.goal-types{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:10px 0 18px}.goal-type{border:1px solid var(--line);padding:10px 4px;border-radius:12px;background:#fff;color:var(--muted);cursor:pointer;font-size:10px}.goal-type.active{border-color:var(--accent);background:#edf5f0;color:var(--accent);font-weight:750}.primary{width:100%;border:0;padding:14px;border-radius:15px;background:var(--ink);color:#fff;cursor:pointer;font-weight:750}.toast{position:absolute;z-index:50;left:50%;bottom:98px;transform:translate(-50%,15px);width:max-content;max-width:86%;padding:10px 14px;border-radius:13px;background:var(--ink);color:#fff;opacity:0;pointer-events:none;transition:.25s;font-size:11px}.toast.show{opacity:1;transform:translate(-50%,0)}.measure-hero{padding:18px;border-radius:24px;background:#fff;border:1px solid var(--line)}.measure-number{margin-top:4px;font-size:35px;font-weight:820;letter-spacing:-.055em}.measure-number small{color:var(--muted);font-size:13px;letter-spacing:0}.spark{width:100%;height:92px;margin-top:8px}.spark path{fill:none;stroke:var(--blue);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.spark .shade{fill:url(#measureFade);stroke:none}.measure-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.measure-card{padding:14px;border:1px solid var(--line);border-radius:18px;background:#fff}.measure-card span{display:block;color:var(--muted);font-size:10px}.measure-card strong{display:block;margin-top:4px;font-size:19px;letter-spacing:-.03em}.measure-card em{display:block;margin-top:4px;color:var(--accent);font-size:9px;font-style:normal}.trial-card{padding:16px;border-radius:22px;background:var(--ink);color:#fff}.trial-card p{margin:6px 0 14px;color:#c5d0ca;font-size:11px;line-height:1.45}.trial-actions{display:flex;gap:7px}.trial-actions button,.data-action{border:0;padding:10px 12px;border-radius:12px;cursor:pointer;font-size:10px;font-weight:750}.trial-actions .buy{background:var(--lime);color:var(--ink)}.trial-actions .restore{background:rgba(255,255,255,.1);color:#fff}.data-note{margin:8px 2px 0;color:var(--muted);font-size:10px;line-height:1.45}.data-action{background:#edf4ef;color:var(--accent)}.tool-setting{width:100%;border:0;text-align:left;background:#fff;cursor:pointer}.back-btn{display:grid;width:38px;height:38px;place-items:center;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--ink);cursor:pointer;font-size:24px;line-height:1}.tool-intro{margin:-6px 2px 16px;color:var(--muted);font-size:12px;line-height:1.5}.tool-grid{display:grid;gap:10px}.tool-card{padding:17px;border:1px solid var(--line);border-radius:22px;background:#fff}.tool-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}.tool-symbol{display:grid;width:40px;height:40px;place-items:center;border-radius:13px;background:#edf4ef;color:var(--accent);font-size:20px;font-weight:850}.tool-card h2{font-size:16px}.tool-card p{margin:5px 0 14px;color:var(--muted);font-size:11px;line-height:1.45}.tool-action,.secondary{border:0;padding:10px 12px;border-radius:12px;background:#edf4ef;color:var(--accent);cursor:pointer;font-size:10px;font-weight:750}.method-card{margin-top:12px;padding:15px;border:1px solid var(--line);border-radius:18px;background:#eef1ed}.method-card h2{font-size:13px}.method-card p{margin-top:5px;color:var(--muted);font-size:10px;line-height:1.5}.tool-sheet{max-height:88%;overflow-y:auto}.field-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}.field-label{display:grid;gap:6px;color:var(--muted);font-size:10px;font-weight:700}.result-box{margin:12px 0 0;padding:14px;border-radius:16px;background:#edf4ef}.result-box[hidden],.consistency-card[hidden],.fast-days[hidden]{display:none}.result-box strong{display:block;color:var(--ink);font-size:24px;letter-spacing:-.04em}.result-box span{display:block;margin-top:3px;color:var(--muted);font-size:10px;line-height:1.45}.safety-note{margin:12px 1px 0!important;padding-top:11px;border-top:1px solid var(--line);font-size:9px!important;line-height:1.5!important}.timer-display{margin:12px 0 4px;text-align:center;font-size:40px;font-weight:820;letter-spacing:-.045em}.timer-caption{text-align:center;color:var(--muted);font-size:10px}.timer-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}.timer-actions .secondary{background:#ecefed;color:var(--ink)}.fast-days{margin-top:10px;padding:12px;border:1px solid var(--line);border-radius:15px;background:#f8f9f7}.fast-days p{margin:0 0 8px;font-size:9px}.fast-day-row{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}.fast-day{border:0;padding:7px 0;border-radius:9px;background:#e8ece9;color:var(--muted);cursor:pointer;font-size:9px;font-weight:750}.fast-day.active{background:var(--accent);color:#fff}.consistency-card{margin-top:10px;padding:13px;border:1px solid #d6e3da;border-radius:15px;background:#f2f7f3}.consistency-card strong{display:block;font-size:12px}.consistency-card span{display:block;margin-top:4px;color:var(--muted);font-size:9px;line-height:1.45}
+@media(max-width:520px){body{background:var(--paper)}.stage{display:block;min-height:100vh;padding:0}.phone{width:100%;height:100dvh;min-height:600px;border:0;border-radius:0;box-shadow:none}.island{top:8px}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+</style><style>
+.custom-measure-field[hidden],.measure-unit[hidden],#clearCheckin[hidden]{display:none!important}
+.score-ring>div{position:relative;z-index:1;width:100%;text-align:center;line-height:1}.score-ring strong{display:block;white-space:nowrap}.score-ring span{margin-top:3px;text-align:center}.metric[hidden]{display:none!important}.featured-picker{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;padding-bottom:13px;border-bottom:1px solid var(--line)}.featured-picker span{color:var(--muted);font-size:10px;font-weight:750}.featured-picker .mini-select{max-width:168px}.custom-measure-field{margin-top:9px}.fast-today{border-color:#d6e3da;background:#f6faf7}.result-box .result-label{font-size:11px;font-weight:750;color:var(--accent)}
+.summary-title-row{display:flex;align-items:center;gap:7px}.summary-title-row h2{margin:0}.info-btn{display:grid;width:22px;height:22px;place-items:center;border:1px solid rgba(255,255,255,.2);border-radius:50%;background:rgba(255,255,255,.08);color:#d8e1dc;cursor:pointer;font-size:11px;font-weight:800}.formula{margin:12px 0;padding:13px;border-radius:15px;background:#edf4ef;text-align:center;color:var(--accent);font-size:12px;font-weight:800}.mini-select{max-width:116px;border:1px solid var(--line);padding:8px 26px 8px 9px;border-radius:10px;background:#f8f9f7;color:var(--ink);font-size:10px;font-weight:700}.prototype-note{margin:10px 2px 0;color:var(--muted);font-size:9px;line-height:1.45}.onboarding{position:absolute;z-index:70;inset:0;display:none;flex-direction:column;padding:50px 20px 20px;background:radial-gradient(circle at 80% 10%,rgba(200,241,104,.35),transparent 16rem),var(--paper)}.onboarding.open{display:flex}.onboard-header{display:flex;align-items:center;justify-content:space-between;min-height:34px}.text-btn{border:0;padding:7px;background:transparent;color:var(--muted);cursor:pointer;font-size:10px;font-weight:750}.onboard-progress{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin:13px 0 16px}.onboard-progress i{height:4px;border-radius:99px;background:#dce1dd;transition:.2s}.onboard-progress i.active{background:var(--accent)}.onboard-steps{min-height:0;flex:1;overflow:hidden}.onboard-step{display:none;height:100%;overflow-y:auto;padding:7px 1px 14px;scrollbar-width:none}.onboard-step.active{display:block;animation:fade .22s ease}.onboard-step::-webkit-scrollbar{display:none}.onboard-step h1{max-width:330px;margin:9px 0 11px;font-size:34px}.onboard-lede{color:var(--muted);font-size:13px;line-height:1.55}.privacy-mark{display:grid;width:62px;height:62px;place-items:center;margin:7px 0 20px;border-radius:19px;background:var(--ink);color:var(--lime);font-size:29px;font-weight:900;box-shadow:0 14px 32px rgba(23,32,28,.17)}.promise-list{display:grid;gap:8px;margin:20px 0}.promise{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:center;padding:11px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.78)}.promise b{display:grid;width:30px;height:30px;place-items:center;border-radius:10px;background:#edf4ef;color:var(--accent);font-size:13px}.promise strong{display:block;font-size:12px}.promise span{display:block;margin-top:2px;color:var(--muted);font-size:9px;line-height:1.35}.price-pill{margin-top:14px;padding:12px 14px;border-radius:15px;background:var(--ink);color:#fff;font-size:11px;font-weight:750}.price-pill span{color:var(--lime)}.choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:18px 0}.onboard-choice{display:grid;min-height:75px;align-content:space-between;border:1px solid var(--line);padding:12px;border-radius:17px;background:#fff;text-align:left;color:var(--muted);cursor:pointer;font-size:10px;font-weight:700}.onboard-choice b{font-size:18px;color:var(--ink)}.onboard-choice.active{border-color:var(--accent);background:#edf5f0;color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}.setup-card,.health-list,.ready-card{margin-top:17px;border:1px solid var(--line);border-radius:21px;background:#fff;overflow:hidden}.setup-row{display:grid;gap:6px;padding:13px;border-bottom:1px solid #edf0ed;color:var(--muted);font-size:10px;font-weight:700}.setup-row:last-child{border-bottom:0}.setup-row .field{padding:11px 12px}.health-choice{display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:10px;width:100%;min-height:62px;border:0;border-bottom:1px solid #edf0ed;padding:9px 12px;background:#fff;text-align:left;cursor:pointer}.health-choice:last-child{border-bottom:0}.health-choice b{display:grid;width:36px;height:36px;place-items:center;border-radius:11px;background:#edf4ef;color:var(--accent)}.health-choice strong{display:block;font-size:12px}.health-choice span{display:block;margin-top:2px;color:var(--muted);font-size:9px}.health-choice i{display:grid;width:25px;height:25px;place-items:center;border-radius:50%;background:#e5e9e6;color:transparent;font-style:normal;font-size:12px;font-weight:900}.health-choice.active i{background:var(--accent);color:#fff}.ready-card{padding:17px}.ready-line{display:grid;grid-template-columns:38px 1fr;gap:11px;align-items:center;padding:11px 0;border-bottom:1px solid #edf0ed}.ready-line:last-child{border-bottom:0}.ready-line b{display:grid;width:38px;height:38px;place-items:center;border-radius:12px;background:#edf4ef;color:var(--accent)}.ready-line strong{display:block;font-size:12px}.ready-line span{display:block;margin-top:2px;color:var(--muted);font-size:9px;line-height:1.4}.onboard-actions{display:grid;grid-template-columns:auto 1fr;gap:9px;padding-top:12px}.onboard-actions .primary{min-width:0}.onboard-back{border:1px solid var(--line);padding:0 15px;border-radius:15px;background:#fff;cursor:pointer;font-size:11px;font-weight:750}.onboard-back[hidden]{display:none}.trial-sheet{text-align:center}.trial-lock{display:grid;width:62px;height:62px;place-items:center;margin:0 auto 15px;border-radius:20px;background:var(--ink);color:var(--lime);font-size:26px}.trial-price{margin:15px 0;padding:15px;border-radius:17px;background:#edf4ef}.trial-price strong{display:block;color:var(--ink);font-size:26px;letter-spacing:-.04em}.trial-price span{display:block;margin-top:3px;color:var(--muted);font-size:10px}.stack-actions{display:grid;gap:8px}.health-sheet{max-height:90%;overflow-y:auto}.checkin-scale{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:14px 0}.checkin-option{border:1px solid var(--line);padding:10px 2px;border-radius:13px;background:#fff;color:var(--muted);cursor:pointer;font-size:18px}.checkin-option span{display:block;margin-top:4px;font-size:8px}.checkin-option.active{border-color:var(--accent);background:#edf5f0;color:var(--accent)}
+</style><style>.measure-units{grid-template-columns:repeat(4,1fr)}.trial-actions{flex-wrap:wrap}.toast{z-index:90}.trial-sheet .text-btn{width:100%}@media(max-height:720px){.onboard-step h1{font-size:29px}.privacy-mark{width:52px;height:52px;margin-bottom:12px}.promise-list{margin:12px 0}.onboarding{padding-top:44px}}</style><style>
+.demo-chip{position:absolute;z-index:85;top:13px;left:14px;padding:5px 8px;border:1px solid rgba(34,92,73,.18);border-radius:999px;background:rgba(244,245,241,.94);color:var(--accent);box-shadow:0 4px 14px rgba(23,32,28,.08);font-size:8px;font-weight:850;letter-spacing:.055em;text-transform:uppercase;backdrop-filter:blur(12px)}
+.web-demo-note{margin:0 0 13px;padding:10px 12px;border:1px solid #d7e4db;border-radius:14px;background:#f0f7f2;color:var(--ink)}
+.web-demo-note strong{display:block;color:var(--accent);font-size:11px}.web-demo-note span{display:block;margin-top:3px;color:var(--muted);font-size:9px;line-height:1.4}
+@media(max-height:720px){.web-demo-note{padding:8px 10px;margin-bottom:9px}.web-demo-note span{font-size:8px}}
+</style>
+<style>
+button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.stepper button{width:44px;height:44px;border-radius:13px}
+.measure-card strong{display:flex;align-items:baseline;gap:4px;color:var(--ink);font-weight:820}
+.measure-card strong .measure-value-number{display:inline;color:var(--ink);font-size:19px;font-weight:820;letter-spacing:-.03em}
+.measure-card strong .measure-value-unit{display:inline;color:var(--muted);font-size:10px;font-weight:650;letter-spacing:0}
+.plain-status{color:var(--muted);font-size:10px;font-weight:700}
+.field-help{display:block;margin-top:3px;color:var(--muted);font-size:9px;font-weight:500;line-height:1.4}
+.privacy-details{display:grid;gap:8px;margin:14px 0 18px}
+.privacy-detail{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start;padding:11px;border:1px solid var(--line);border-radius:16px;background:#f8f9f7}
+.privacy-detail b{display:grid;width:30px;height:30px;place-items:center;border-radius:10px;background:#edf4ef;color:var(--accent);font-size:13px}
+.privacy-detail strong{display:block;font-size:12px}
+.privacy-detail span{display:block;margin-top:2px;color:var(--muted);font-size:9px;line-height:1.4}
+#energyRangeResult[hidden],#energyValueWarning[hidden],#bmiRangeResult[hidden],#measureConditionField[hidden],.health-choice[hidden]{display:none!important}
+</style>
+<style>
+.vector-icon{display:block;width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.avatar .vector-icon{width:21px;height:21px}.nav-btn .vector-icon{width:19px;height:19px}.onboard-choice .vector-icon,.health-choice .vector-icon{width:18px;height:18px}
+.safety-break,.result-line{display:block}.result-box .result-line+.result-line{margin-top:3px}
+.setting-copy{display:grid;gap:3px}.setting-copy p{margin:0}.setting-copy .secondary-copy{color:var(--muted)}
+.health-enabled{color:var(--accent)}
+.prototype-session-note{margin-top:10px;color:var(--muted);font-size:10px;line-height:1.5}
+.reminder-time{margin:12px 0 16px}
+
+/* Comfortable prototype sizing. Native controls will additionally use Dynamic Type. */
+.avatar,.back-btn,.check{width:44px;height:44px}
+.toggle{width:51px;height:31px}.toggle:after{width:25px;height:25px}.toggle.on:after{transform:translateX(20px)}
+.section-head button,.text-btn,.tool-action,.secondary,.data-action{min-height:44px}
+.nav-btn{min-height:48px;font-size:10px}.period-btn,.metric-tab,.goal-type,.fast-day,.checkin-option{min-height:44px}
+.setting p,.metric-value,.insight-card p,.tool-card p{font-size:11px}
+.prototype-note,.measure-card em,.field-help,.privacy-detail span,.web-demo-note span,.promise span,.ready-line span,.health-choice span,.safety-note,.consistency-card span,.fast-days p{font-size:10px!important;line-height:1.5!important}
+.field-label,.setup-row,.featured-picker span,.measure-card span,.result-box span,.timer-caption{font-size:11px}
+
+html[data-theme="dark"]{color-scheme:dark;--ink:#edf3ef;--muted:#aab7b0;--line:#34423a;--paper:#101713;--card:#18211c;--accent:#8fd0b4;--lime:#c8ef72;--blue:#8eadf1;--orange:#eda36f}
+html[data-theme="dark"] body{background:radial-gradient(circle at 16% 12%,rgba(143,208,180,.12),transparent 28rem),radial-gradient(circle at 88% 82%,rgba(142,173,241,.1),transparent 30rem),#07100c}
+html[data-theme="dark"] .phone,html[data-theme="dark"] .onboarding{background:var(--paper)}
+html[data-theme="dark"] .onboarding{background:radial-gradient(circle at 80% 10%,rgba(143,208,180,.14),transparent 16rem),var(--paper)}
+html[data-theme="dark"] .metric,html[data-theme="dark"] .chart-card,html[data-theme="dark"] .insight-card,html[data-theme="dark"] .plan-card,html[data-theme="dark"] .setting-card,html[data-theme="dark"] .measure-hero,html[data-theme="dark"] .measure-card,html[data-theme="dark"] .tool-card,html[data-theme="dark"] .sheet,html[data-theme="dark"] .setup-card,html[data-theme="dark"] .health-list,html[data-theme="dark"] .ready-card,html[data-theme="dark"] .promise,html[data-theme="dark"] .onboard-choice,html[data-theme="dark"] .health-choice,html[data-theme="dark"] .tool-setting{background:var(--card)}
+html[data-theme="dark"] .bottom-nav{border-color:rgba(52,66,58,.95);background:rgba(24,33,28,.94)}
+html[data-theme="dark"] .field,html[data-theme="dark"] .mini-select,html[data-theme="dark"] .goal-type,html[data-theme="dark"] .back-btn,html[data-theme="dark"] .fast-days,html[data-theme="dark"] .privacy-detail{background:#141d18;color:var(--ink)}
+html[data-theme="dark"] .metric-icon,html[data-theme="dark"] .promise b,html[data-theme="dark"] .health-choice b,html[data-theme="dark"] .ready-line b,html[data-theme="dark"] .tool-symbol,html[data-theme="dark"] .insight-mark{background:#213129;color:var(--accent)}
+html[data-theme="dark"] .metric-icon.blue{background:#202b42;color:var(--blue)}html[data-theme="dark"] .metric-icon.orange{background:#38281e;color:var(--orange)}
+html[data-theme="dark"] .summary,html[data-theme="dark"] .trial-card,html[data-theme="dark"] .price-pill,html[data-theme="dark"] .privacy-mark{background:#080e0b;color:#f7fbf8}
+html[data-theme="dark"] .primary,html[data-theme="dark"] .avatar,html[data-theme="dark"] .metric-tab.active{background:#dce9e1;color:#111813}
+html[data-theme="dark"] .periods,html[data-theme="dark"] .stepper button,html[data-theme="dark"] .check,html[data-theme="dark"] .toggle,html[data-theme="dark"] .health-choice i{background:#2a352f;color:var(--muted)}
+html[data-theme="dark"] .period-btn.active{background:#27332c;color:var(--ink)}
+html[data-theme="dark"] .onboard-choice.active,html[data-theme="dark"] .goal-type.active,html[data-theme="dark"] .result-box,html[data-theme="dark"] .method-card,html[data-theme="dark"] .consistency-card,html[data-theme="dark"] .fast-today{background:#1c2b23}
+html[data-theme="dark"] .web-demo-note{border-color:#315242;background:#17271f}html[data-theme="dark"] .demo-chip{border-color:#3c5d4c;background:rgba(16,23,19,.94)}
+html[data-theme="dark"] .progress,html[data-theme="dark"] .onboard-progress i{background:#2b3630}html[data-theme="dark"] .chart .grid{stroke:#2f3b34}
+html[data-theme="dark"] .trial-actions .restore{background:rgba(255,255,255,.12)}html[data-theme="dark"] .data-action,html[data-theme="dark"] .tool-action,html[data-theme="dark"] .secondary{background:#213129;color:var(--accent)}
+html[data-theme="dark"] .trial-actions .buy,html[data-theme="dark"] .metric.done .check,html[data-theme="dark"] .fast-day.active{color:#111813}
+html[data-theme="dark"] .grabber{background:#425148}
+</style>
+</head>
+<body>
+<main class="stage">
+<section class="phone" aria-label="welltally iPhone app prototype">
+<div class="island" aria-hidden="true">
+</div>
+<div class="demo-chip" role="note">Demo · sample data only</div>
+<div class="app">
+<section class="onboarding open" id="onboarding" role="dialog" aria-modal="true" aria-label="Set up welltally">
+<header class="onboard-header">
+<span class="wordmark">welltally</span>
+<button class="text-btn" id="skipOnboarding" type="button">Skip preview</button>
+</header>
+<div class="onboard-progress" aria-label="Setup progress">
+<i class="active">
+</i>
+<i>
+</i>
+<i>
+</i>
+<i>
+</i>
+<i>
+</i>
+</div>
+<div class="onboard-steps">
+<article class="onboard-step active" data-onboard-step="0">
+<div class="web-demo-note" role="note">
+<strong>Interactive prototype</strong>
+<span>Use sample data only. This web version does not connect to Apple Health or save real health records.</span>
+</div>
+<div class="privacy-mark" aria-hidden="true">✓</div>
+<div class="eyebrow">Private by design</div>
+<h1>Your health stays yours.</h1>
+<p class="onboard-lede">Preview the planned routines, measurements, and trends experience. The native privacy architecture shown here is not active in this web demo.</p>
+<div class="promise-list">
+<div class="promise">
+<b>⌂</b>
+<div>
+<strong>Native app promise</strong>
+<span>The production iPhone app is designed to keep entries and analysis on-device.</span>
+</div>
+</div>
+<div class="promise">
+<b>♥</b>
+<div>
+<strong>You choose Apple Health access</strong>
+<span>Approve individual categories or connect nothing.</span>
+</div>
+</div>
+<div class="promise">
+<b>∅</b>
+<div>
+<strong>No real data in this demo</strong>
+<span>Test with the included sample information only.</span>
+</div>
+</div>
+</div>
+<div class="price-pill">
+<span>14 days full access</span> · then $9.99 once · no card today</div>
+</article>
+<article class="onboard-step" data-onboard-step="1">
+<div class="eyebrow">Make it useful</div>
+<h1>What would you like to track?</h1>
+<p class="onboard-lede">Start small. Every choice can be changed later, and none is required.</p>
+<div class="choice-grid">
+<button class="onboard-choice" type="button" aria-pressed="false">
+<b>☷</b>Habits & routines</button>
+<button class="onboard-choice" type="button" aria-pressed="false">
+<b>↗</b>Steps & distance</button>
+<button class="onboard-choice" type="button" aria-pressed="false">
+<b>☾</b>Sleep</button>
+<button class="onboard-choice" type="button" aria-pressed="false">
+<b>⌁</b>Workouts</button>
+<button class="onboard-choice" type="button" aria-pressed="false">
+<b><svg class="vector-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M8.5 6.5 12 3l3.5 3.5M8.5 17.5 12 21l3.5-3.5"/></svg></b>Measurements</button>
+<button class="onboard-choice" type="button" aria-pressed="false">
+<b>●</b>Energy check-ins</button>
+</div>
+<p class="prototype-note">Nothing is selected for you. After setup, this prototype still loads a clearly labeled sample dashboard so every feature remains testable.</p>
+</article>
+<article class="onboard-step" data-onboard-step="2">
+<div class="eyebrow">Only what helps</div>
+<h1>No profile required.</h1>
+<p class="onboard-lede">Height and weight are optional. If entered, they’re used only to prefill your private log and calculators.</p>
+<div class="setup-card">
+<label class="setup-row">Measurement units<select class="field" id="onboardUnits">
+<option value="automatic">Automatic for this device</option>
+<option value="imperial">Imperial</option>
+<option value="metric">Metric</option>
+</select>
+</label>
+<label class="setup-row"><span id="onboardHeightLabel">Height (in) · optional</span><input class="field" id="onboardHeight" type="number" min="0.1" step="0.1" inputmode="decimal" placeholder="Skip or enter a value">
+</label>
+<label class="setup-row"><span id="onboardWeightLabel">Weight (lb) · optional</span><input class="field" id="onboardWeight" type="number" min="0.1" step="0.1" inputmode="decimal" placeholder="Skip or enter a value">
+</label>
+</div>
+<p class="prototype-note">Age is requested only when you use the optional resting-energy calculator.</p>
+</article>
+<article class="onboard-step" data-onboard-step="3">
+<div class="eyebrow">Apple Health</div>
+<h1>Connect only what you want.</h1>
+<p class="onboard-lede">Nothing is selected initially. These controls simulate the native permission choices; Safari cannot access Apple Health.</p>
+<div class="health-list">
+<button class="health-choice" type="button" aria-pressed="false">
+<b>↗</b>
+<span>
+<strong>Steps & distance</strong>
+<span>Daily totals and weekly mileage</span>
+</span>
+<i>✓</i>
+</button>
+<button class="health-choice" type="button" aria-pressed="false">
+<b>⌁</b>
+<span>
+<strong>Workouts</strong>
+<span>Type, duration, and completion</span>
+</span>
+<i>✓</i>
+</button>
+<button class="health-choice" type="button" aria-pressed="false">
+<b>☾</b>
+<span>
+<strong>Sleep</strong>
+<span>Duration only</span>
+</span>
+<i>✓</i>
+</button>
+<button class="health-choice" type="button" aria-pressed="false">
+<b><svg class="vector-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M8.5 6.5 12 3l3.5 3.5M8.5 17.5 12 21l3.5-3.5"/></svg></b>
+<span>
+<strong>Weight & height</strong>
+<span>Optional physical measurements</span>
+</span>
+<i>✓</i>
+</button>
+<button class="health-choice" type="button" aria-pressed="false">
+<b>⌖</b>
+<span>
+<strong>Waist circumference</strong>
+<span>Optional when available</span>
+</span>
+<i>✓</i>
+</button>
+</div>
+<button class="text-btn" id="clearHealthChoices" type="button" style="width:100%;margin-top:8px">Continue with manual tracking only</button>
+</article>
+<article class="onboard-step" data-onboard-step="4">
+<div class="eyebrow">Ready when you are</div>
+<h1>Fourteen days. Everything included.</h1>
+<p class="onboard-lede">Explore every feature without entering payment information. Afterward, keep using welltally with one $9.99 purchase.</p>
+<div class="ready-card">
+<div class="ready-line">
+<b>14</b>
+<div>
+<strong>Full-access trial</strong>
+<span>No subscription and nothing automatically renews.</span>
+</div>
+</div>
+<div class="ready-line">
+<b>$</b>
+<div>
+<strong>$9.99 lifetime unlock</strong>
+<span>Purchase once and restore it through your Apple Account.</span>
+</div>
+</div>
+<div class="ready-line">
+<b>⇩</b>
+<div>
+<strong>Your records remain yours</strong>
+<span>Viewing, exporting, and deleting remain available even if you do not purchase.</span>
+</div>
+</div>
+</div>
+</article>
+</div>
+<footer class="onboard-actions">
+<button class="onboard-back" id="onboardBack" type="button" hidden>Back</button>
+<button class="primary" id="onboardNext" type="button">Continue</button>
+</footer>
+</section>
+<section class="screen active" id="today" aria-labelledby="today-title">
+<header class="topbar">
+<div>
+<div class="brandline">
+<span class="wordmark">welltally</span>
+<span aria-hidden="true">·</span>
+<span>Wednesday · Aug 19</span>
+</div>
+<h1 id="today-title">Good morning.</h1>
+</div>
+<button class="avatar" data-go="settings" aria-label="Open settings"><svg class="vector-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.1 3h3.8l.5 2.1c.6.2 1.2.4 1.7.7l1.8-1.1 2.7 2.7-1.1 1.8c.3.5.5 1.1.7 1.7l2.1.5v3.8l-2.1.5c-.2.6-.4 1.2-.7 1.7l1.1 1.8-2.7 2.7-1.8-1.1c-.5.3-1.1.5-1.7.7l-.5 2.1h-3.8l-.5-2.1c-.6-.2-1.2-.4-1.7-.7l-1.8 1.1-2.7-2.7 1.1-1.8c-.3-.5-.5-1.1-.7-1.7l-2.1-.5v-3.8l2.1-.5c.2-.6.4-1.2.7-1.7L3.4 7.4l2.7-2.7 1.8 1.1c.5-.3 1.1-.5 1.7-.7L10.1 3Z"/><circle cx="12" cy="12" r="3.2"/></svg></button>
+</header>
+<article class="summary">
+<div class="summary-row">
+<div class="score-ring" id="scoreRing" aria-label="Daily Progress: 48 percent">
+<svg viewBox="0 0 100 100" aria-hidden="true">
+<circle cx="50" cy="50" r="43" fill="none" stroke="#35413b" stroke-width="7"/>
+<circle id="scoreArc" cx="50" cy="50" r="43" fill="none" stroke="#c8f168" stroke-width="7" stroke-linecap="round" stroke-dasharray="270" stroke-dashoffset="140"/>
+</svg>
+<div>
+<strong id="score">48%</strong>
+<span>progress</span>
+</div>
+</div>
+<div>
+<div class="summary-title-row">
+<h2 id="summaryTitle">Building momentum</h2>
+<button class="info-btn" id="explainProgress" type="button" aria-label="How Daily Progress is calculated">?</button>
+</div>
+<p id="summaryCopy">Your completed and partial goals add up to 48% today. No goal can count more than 100%.</p>
+</div>
+</div>
+<div class="mini-stats">
+<div class="mini-stat">
+<strong>12 days</strong>
+<span>current streak</span>
+</div>
+<div class="mini-stat">
+<strong>84%</strong>
+<span>weekly consistency</span>
+</div>
+</div>
+</article>
+<div class="section-head">
+<h2>Today</h2>
+<button id="openAdd" type="button">+ Add habit</button>
+</div>
+<div class="metric-list" id="metricList">
+<article class="metric" data-progress="78" data-base-progress="78">
+<div class="metric-icon green">↗</div>
+<div class="metric-copy">
+<div class="metric-title">Steps & distance <span class="auto">Sample</span>
+</div>
+<div class="metric-value">7,842 steps · 3.6 mi today</div>
+<div class="progress" style="--p:78%">
+<i>
+</i>
+</div>
+</div>
+<button class="check" type="button" aria-label="Mark steps complete">✓</button>
+</article>
+<article class="metric done" data-progress="100" data-base-progress="0">
+<div class="metric-icon blue">☾</div>
+<div class="metric-copy">
+<div class="metric-title">Sleep <span class="auto">Sample</span>
+</div>
+<div class="metric-value">7h 42m · goal reached</div>
+<div class="progress" style="--p:100%">
+<i>
+</i>
+</div>
+</div>
+<button class="check" type="button" aria-label="Mark sleep incomplete">✓</button>
+</article>
+<article class="metric" id="waterMetric" data-progress="62.5" data-base-progress="62.5">
+<div class="metric-icon blue">◒</div>
+<div class="metric-copy">
+<div class="metric-title">Water</div>
+<div class="metric-value">
+<span id="waterValue">5</span> of 8 glasses</div>
+<div class="progress" id="waterProgress" style="--p:62.5%">
+<i>
+</i>
+</div>
+</div>
+<div class="stepper">
+<button id="waterMinus" type="button" aria-label="Remove a glass">−</button>
+<button id="waterPlus" type="button" aria-label="Add a glass">+</button>
+</div>
+</article>
+<article class="metric" data-progress="0" data-base-progress="0">
+<div class="metric-icon orange">⌁</div>
+<div class="metric-copy">
+<div class="metric-title">Workout <span class="auto">Sample</span>
+</div>
+<div class="metric-value">30 min strength · planned 5:30 PM</div>
+<div class="progress" style="--p:0%">
+<i>
+</i>
+</div>
+</div>
+<button class="check" type="button" aria-label="Mark workout complete">✓</button>
+</article>
+<article class="metric" id="energyMetric" data-progress="0" data-base-progress="0">
+<div class="metric-icon">●</div>
+<div class="metric-copy">
+<div class="metric-title">Energy check-in <span class="auto">Sample</span></div>
+<div class="metric-value" id="energyCheckValue">How are you feeling?</div>
+<div class="progress" style="--p:0%">
+<i>
+</i>
+</div>
+</div>
+<button class="check" id="openCheckin" data-checkin type="button" aria-label="Open energy check-in">✓</button>
+</article>
+<article class="metric fast-today" id="fastToday" hidden>
+<div class="metric-icon green">◷</div>
+<div class="metric-copy">
+<div class="metric-title">Fasting timer <span class="auto">Optional</span>
+</div>
+<div class="metric-value" id="fastTodayValue">Not running · excluded from Daily Progress</div>
+</div>
+<button class="check" id="openFastToday" data-fast-open type="button" aria-label="Open fasting timer">›</button>
+</article>
+</div>
+</section>
+
+<section class="screen" id="trends" aria-labelledby="trends-title">
+<header class="topbar">
+<div>
+<div class="eyebrow">Your data</div>
+<h1 id="trends-title">Trends</h1>
+</div>
+<button class="avatar" data-go="settings" aria-label="Open settings"><svg class="vector-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.1 3h3.8l.5 2.1c.6.2 1.2.4 1.7.7l1.8-1.1 2.7 2.7-1.1 1.8c.3.5.5 1.1.7 1.7l2.1.5v3.8l-2.1.5c-.2.6-.4 1.2-.7 1.7l1.1 1.8-2.7 2.7-1.8-1.1c-.5.3-1.1.5-1.7.7l-.5 2.1h-3.8l-.5-2.1c-.6-.2-1.2-.4-1.7-.7l-1.8 1.1-2.7-2.7 1.1-1.8c-.3-.5-.5-1.1-.7-1.7l-2.1-.5v-3.8l2.1-.5c.2-.6.4-1.2.7-1.7L3.4 7.4l2.7-2.7 1.8 1.1c.5-.3 1.1-.5 1.7-.7L10.1 3Z"/><circle cx="12" cy="12" r="3.2"/></svg></button>
+</header>
+<div class="periods" role="tablist">
+<button class="period-btn" data-period="7D">7D</button>
+<button class="period-btn active" data-period="1M">1M</button>
+<button class="period-btn" data-period="3M">3M</button>
+<button class="period-btn" data-period="1Y">1Y</button>
+</div>
+<div class="metric-tabs">
+<button class="metric-tab active" data-metric="Consistency">Consistency</button>
+<button class="metric-tab" data-metric="Sleep">Sleep</button>
+<button class="metric-tab" data-metric="Steps">Steps</button>
+<button class="metric-tab" data-metric="Distance">Distance</button>
+<button class="metric-tab" data-metric="Workouts">Workouts</button>
+</div>
+<article class="chart-card">
+<div class="chart-top">
+<div>
+<div class="eyebrow" id="chartName">Consistency</div>
+<div class="chart-value">
+<span id="chartValue">84</span>
+<small id="chartUnit">%</small>
+</div>
+</div>
+<div class="delta" id="chartDelta">↑ 8% vs last month</div>
+</div>
+<svg class="chart" viewBox="0 0 330 145" preserveAspectRatio="none" aria-label="Trend chart">
+<defs>
+<linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#225c49" stop-opacity=".24"/>
+<stop offset="1" stop-color="#225c49" stop-opacity="0"/>
+</linearGradient>
+</defs>
+<line class="grid" x1="0" y1="28" x2="330" y2="28"/>
+<line class="grid" x1="0" y1="72" x2="330" y2="72"/>
+<line class="grid" x1="0" y1="116" x2="330" y2="116"/>
+<path class="area" id="chartArea" d="M0 104 L35 96 L70 99 L105 75 L140 82 L175 62 L210 69 L245 42 L280 49 L330 27 L330 116 L0 116 Z"/>
+<path class="line" id="chartLine" d="M0 104 L35 96 L70 99 L105 75 L140 82 L175 62 L210 69 L245 42 L280 49 L330 27"/>
+<circle id="chartDot" cx="330" cy="27" r="5" fill="#fff" stroke="#225c49" stroke-width="3"/>
+</svg>
+<div class="chart-labels">
+<span>Jul 20</span>
+<span>Jul 27</span>
+<span>Aug 3</span>
+<span>Aug 10</span>
+<span>Today</span>
+</div>
+</article>
+<div class="section-head">
+<h2>What stands out</h2>
+<button id="explainInsights">How this works</button>
+</div>
+<div class="insight-stack">
+<article class="insight-card">
+<div class="insight-mark">+18</div>
+<div>
+<h3>Sleep supports your workouts</h3>
+<p>You complete 18% more planned workouts after sleeping at least 7 hours.</p>
+</div>
+</article>
+<article class="insight-card">
+<div class="insight-mark">Tue</div>
+<div>
+<h3>Tuesdays are your strongest</h3>
+<p>Your completion rate is 91%, compared with 76% across other days.</p>
+</div>
+</article>
+<article class="insight-card">
+<div class="insight-mark">↗</div>
+<div>
+<h3>Consistency is improving</h3>
+<p>You met 5 or more goals on 12 of the last 14 days—your best period yet.</p>
+</div>
+</article>
+</div>
+</section>
+
+<section class="screen" id="plan" aria-labelledby="plan-title">
+<header class="topbar">
+<div>
+<div class="eyebrow">Goals & routines</div>
+<h1 id="plan-title">Your plan</h1>
+</div>
+<button class="avatar" data-go="settings" aria-label="Open settings"><svg class="vector-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.1 3h3.8l.5 2.1c.6.2 1.2.4 1.7.7l1.8-1.1 2.7 2.7-1.1 1.8c.3.5.5 1.1.7 1.7l2.1.5v3.8l-2.1.5c-.2.6-.4 1.2-.7 1.7l1.1 1.8-2.7 2.7-1.8-1.1c-.5.3-1.1.5-1.7.7l-.5 2.1h-3.8l-.5-2.1c-.6-.2-1.2-.4-1.7-.7l-1.8 1.1-2.7-2.7 1.1-1.8c-.3-.5-.5-1.1-.7-1.7l-2.1-.5v-3.8l2.1-.5c.2-.6.4-1.2.7-1.7L3.4 7.4l2.7-2.7 1.8 1.1c.5-.3 1.1-.5 1.7-.7L10.1 3Z"/><circle cx="12" cy="12" r="3.2"/></svg></button>
+</header>
+<article class="plan-card">
+<div class="routine-head">
+<div>
+<div class="eyebrow">This week</div>
+<h2>5-day streak</h2>
+</div>
+<strong style="font-size:22px">84%</strong>
+</div>
+<div class="week">
+<div class="day hit">M<i>✓</i>
+</div>
+<div class="day hit">T<i>✓</i>
+</div>
+<div class="day hit">W<i>✓</i>
+</div>
+<div class="day hit">T<i>✓</i>
+</div>
+<div class="day hit">F<i>✓</i>
+</div>
+<div class="day">S<i>·</i>
+</div>
+<div class="day">S<i>·</i>
+</div>
+</div>
+</article>
+<div class="section-head">
+<h2>Daily foundation</h2>
+<button class="editRoutine">Edit</button>
+</div>
+<article class="plan-card">
+<div class="plan-title">
+<strong>Morning routine</strong>
+<span>3 of 3 daily</span>
+</div>
+<div class="habit-row">
+<i class="habit-dot">
+</i>Sleep 7+ hours<span>Automatic</span>
+</div>
+<div class="habit-row">
+<i class="habit-dot">
+</i>Walk 3,000 steps by noon<span>Automatic</span>
+</div>
+<div class="habit-row">
+<i class="habit-dot">
+</i>Log morning energy<span>Manual</span>
+</div>
+</article>
+<div class="section-head">
+<h2>Training</h2>
+<button class="editRoutine">Edit</button>
+</div>
+<article class="plan-card">
+<div class="plan-title">
+<strong>Strength & movement</strong>
+<span>4 times weekly</span>
+</div>
+<div class="habit-row">
+<i class="habit-dot" style="background:#436fca">
+</i>Strength workout<span>Mon · Wed · Fri</span>
+</div>
+<div class="habit-row">
+<i class="habit-dot" style="background:#d6793a">
+</i>Mobility session<span>Tue · Sat</span>
+</div>
+</article>
+<button class="primary" id="newRoutine">Add a new routine</button>
+</section>
+
+<section class="screen" id="measurements" aria-labelledby="measurements-title">
+<header class="topbar">
+<div>
+<div class="eyebrow">Private body log</div>
+<h1 id="measurements-title">Measurements</h1>
+</div>
+<button class="avatar" data-go="settings" aria-label="Open settings"><svg class="vector-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.1 3h3.8l.5 2.1c.6.2 1.2.4 1.7.7l1.8-1.1 2.7 2.7-1.1 1.8c.3.5.5 1.1.7 1.7l2.1.5v3.8l-2.1.5c-.2.6-.4 1.2-.7 1.7l1.1 1.8-2.7 2.7-1.8-1.1c-.5.3-1.1.5-1.7.7l-.5 2.1h-3.8l-.5-2.1c-.6-.2-1.2-.4-1.7-.7l-1.8 1.1-2.7-2.7 1.1-1.8c-.3-.5-.5-1.1-.7-1.7l-2.1-.5v-3.8l2.1-.5c.2-.6.4-1.2.7-1.7L3.4 7.4l2.7-2.7 1.8 1.1c.5-.3 1.1-.5 1.7-.7L10.1 3Z"/><circle cx="12" cy="12" r="3.2"/></svg></button>
+</header>
+<article class="measure-hero">
+<label class="featured-picker">
+<span>Featured measurement</span>
+<select class="mini-select" id="featuredMeasurement">
+<option>Weight</option>
+<option>Waist</option>
+<option>Chest</option>
+<option>Left arm</option>
+<option>Right arm</option>
+<option>Left forearm</option>
+<option>Right forearm</option>
+<option>Left thigh</option>
+<option>Right thigh</option>
+<option>Left calf</option>
+<option>Right calf</option>
+</select>
+</label>
+<div class="chart-top">
+<div>
+<div class="eyebrow" id="featuredMeasureName">Weight</div>
+<div class="measure-number">
+<span id="weightValue">186.4</span> <small id="weightUnit">lb</small>
+</div>
+</div>
+<div class="delta" id="weightDelta">↓ 3.2 lb in 30 days</div>
+</div>
+<svg class="spark" viewBox="0 0 330 92" preserveAspectRatio="none" aria-label="Weight trend">
+<defs>
+<linearGradient id="measureFade" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#436fca" stop-opacity=".2"/>
+<stop offset="1" stop-color="#436fca" stop-opacity="0"/>
+</linearGradient>
+</defs>
+<path class="shade" d="M0 28 L42 33 L84 29 L126 43 L168 48 L210 54 L252 59 L288 66 L330 70 L330 92 L0 92 Z"/>
+<path d="M0 28 L42 33 L84 29 L126 43 L168 48 L210 54 L252 59 L288 66 L330 70"/>
+</svg>
+<div class="chart-labels">
+<span>Jul 20</span>
+<span>Jul 27</span>
+<span>Aug 3</span>
+<span>Aug 10</span>
+<span>Today</span>
+</div>
+</article>
+<div class="section-head">
+<h2>Latest entries</h2>
+<button id="openMeasure" type="button">+ Log measurement</button>
+</div>
+<div class="measure-grid" id="measureGrid">
+<article class="measure-card" data-imperial="34.5 in" data-metric="87.6 cm">
+<span>Waist</span>
+<strong>34.5 in</strong>
+<em>↓ 0.5 this month</em>
+</article>
+<article class="measure-card" data-imperial="42.0 in" data-metric="106.7 cm">
+<span>Chest</span>
+<strong>42.0 in</strong>
+<em>Last logged Aug 12</em>
+</article>
+<article class="measure-card" data-imperial="14.9 in" data-metric="37.8 cm">
+<span>Left arm</span>
+<strong>14.9 in</strong>
+<em>Relaxed · Aug 18</em>
+</article>
+<article class="measure-card" data-imperial="15.2 in" data-metric="38.6 cm">
+<span>Right arm</span>
+<strong>15.2 in</strong>
+<em>Relaxed · Aug 18</em>
+</article>
+<article class="measure-card" data-imperial="11.8 in" data-metric="30.0 cm">
+<span>Left forearm</span>
+<strong>11.8 in</strong>
+<em>Relaxed · Aug 18</em>
+</article>
+<article class="measure-card" data-imperial="12.0 in" data-metric="30.5 cm">
+<span>Right forearm</span>
+<strong>12.0 in</strong>
+<em>Relaxed · Aug 18</em>
+</article>
+<article class="measure-card" data-imperial="23.5 in" data-metric="59.7 cm">
+<span>Left thigh</span>
+<strong>23.5 in</strong>
+<em>Relaxed · Aug 18</em>
+</article>
+<article class="measure-card" data-imperial="23.8 in" data-metric="60.5 cm">
+<span>Right thigh</span>
+<strong>23.8 in</strong>
+<em>Relaxed · Aug 18</em>
+</article>
+<article class="measure-card" data-imperial="15.5 in" data-metric="39.4 cm">
+<span>Left calf</span>
+<strong>15.5 in</strong>
+<em>Relaxed · Aug 18</em>
+</article>
+<article class="measure-card" data-imperial="15.7 in" data-metric="39.9 cm">
+<span>Right calf</span>
+<strong>15.7 in</strong>
+<em>Relaxed · Aug 18</em>
+</article>
+</div>
+<p class="data-note">Every field is optional. Use sample values only; manual demo entries reset when this prototype reloads.</p>
+<div class="section-head">
+<h2>Tracking preferences</h2>
+<button id="customMeasure" type="button">Customize</button>
+</div>
+<div class="setting-card">
+<div class="setting">
+<div class="metric-icon green">✎</div>
+<div class="setting-copy">
+<h3>Manual by default</h3>
+<p>No Apple Health connection required</p>
+<p class="secondary-copy">Weight, height, and waist can optionally sync.</p>
+</div>
+<span class="plain-status" id="measurementTrackingStatus">Manual</span>
+</div>
+</div>
+<button id="openMeasurementHealth" type="button" hidden aria-hidden="true" tabindex="-1"></button>
+</section>
+
+<section class="screen" id="settings" aria-labelledby="settings-title">
+<header class="topbar">
+<div>
+<div class="wordmark">welltally</div>
+<h1 id="settings-title">Settings</h1>
+</div>
+</header>
+<article class="trial-card">
+<div class="eyebrow" style="color:#c8f168">Full-access trial · 14 days left</div>
+<h2 style="margin-top:5px">Try everything. Keep it once.</h2>
+<p>No card today. One $9.99 purchase unlocks welltally permanently—no subscription, account, or recurring fee.</p>
+<div class="trial-actions">
+<button class="buy" id="unlockOnce" type="button">Unlock for $9.99</button>
+<button class="restore" id="restorePurchase" type="button">Restore purchase</button>
+</div>
+</article>
+<div class="section-head">
+<h2>Connections</h2>
+</div>
+<div class="setting-card">
+<button class="setting tool-setting" id="openHealthPermissions" type="button">
+<div class="metric-icon green">♥</div>
+<div>
+<h3>Apple Health</h3>
+<p>Only categories you approve</p>
+</div>
+<span class="plain-status" id="healthConnectionStatus">Not connected</span>
+</button>
+</div>
+<div class="section-head">
+<h2>Preferences</h2>
+</div>
+<div class="setting-card">
+<div class="setting">
+<div class="metric-icon">◫</div>
+<div>
+<h3>Measurement units</h3>
+<p>Automatic uses this device’s region</p>
+</div>
+<select class="mini-select" id="unitPreference" aria-label="Measurement units">
+<option value="automatic">Automatic</option>
+<option value="imperial">Imperial</option>
+<option value="metric">Metric</option>
+</select>
+</div>
+<div class="setting">
+<div class="metric-icon">◐</div>
+<div>
+<h3>Appearance</h3>
+<p>Follow the system or choose a theme</p>
+</div>
+<select class="mini-select" id="appearancePreference" aria-label="Appearance">
+<option value="system">System</option>
+<option value="light">Light</option>
+<option value="dark">Dark</option>
+</select>
+</div>
+<div class="setting">
+<div class="metric-icon">◷</div>
+<div>
+<h3>Daily reminder</h3>
+<p id="reminderSummary">Off until you choose a time</p>
+</div>
+<button class="toggle" id="reminderToggle" role="switch" aria-checked="false" aria-label="Daily reminder">
+</button>
+</div>
+<div class="setting">
+<div class="metric-icon">✦</div>
+<div>
+<h3>Weekly insight</h3>
+<p>Calculated locally from your entries</p>
+</div>
+<button class="toggle on" role="switch" aria-checked="true" aria-label="Weekly insight">
+</button>
+</div>
+<div class="setting">
+<div class="metric-icon">▣</div>
+<div>
+<h3>Haptic feedback</h3>
+<p>For completed habits</p>
+</div>
+<button class="toggle" role="switch" aria-checked="false" aria-label="Haptic feedback">
+</button>
+</div>
+</div>
+<div class="section-head">
+<h2>Optional tools</h2>
+<button type="button" data-go="tools">Manage</button>
+</div>
+<div class="setting-card">
+<button class="setting tool-setting" type="button" data-go="tools">
+<div class="metric-icon green">⌁</div>
+<div>
+<h3>Calculators & fasting timer</h3>
+<p>Private utilities, off until you open them</p>
+</div>
+<span>›</span>
+</button>
+</div>
+<div class="section-head">
+<h2>Your data</h2>
+<button id="importBackup" type="button">Import</button>
+</div>
+<div class="setting-card">
+<div class="setting">
+<div class="metric-icon green">▤</div>
+<div>
+<h3>Stored locally by welltally</h3>
+<p>No welltally account or health-data server</p>
+</div>
+</div>
+<div class="setting">
+<div class="metric-icon blue">⇩</div>
+<div>
+<h3>Encrypted backup</h3>
+<p>Save a portable copy wherever you choose</p>
+</div>
+<button class="data-action" id="exportBackup" type="button">Create</button>
+</div>
+<div class="setting">
+<div class="metric-icon orange">×</div>
+<div>
+<h3>Delete local data</h3>
+<p>Remove every record stored by welltally</p>
+</div>
+<button class="data-action" id="deleteLocalData" type="button">Delete…</button>
+</div>
+</div>
+<p class="data-note">Deleting the app may delete its local data. welltally can help you make a backup, but never receives or stores it.</p>
+<div class="section-head">
+<h2>Privacy boundary</h2>
+</div>
+<div class="setting-card">
+<button class="setting tool-setting" id="openPrivacyDetails" type="button">
+<div class="metric-icon green">⌾</div>
+<div>
+<h3>Your data stays yours</h3>
+<p>See exactly what welltally handles—and what it never collects</p>
+</div>
+<span>›</span>
+</button>
+</div>
+<div class="section-head">
+<h2>Prototype controls</h2>
+</div>
+<div class="setting-card">
+<button class="setting tool-setting" id="replayOnboarding" type="button">
+<div class="metric-icon green">↺</div>
+<div>
+<h3>Replay first-time setup</h3>
+<p>Restart the blank privacy and permissions flow</p>
+</div>
+<span>›</span>
+</button>
+<button class="setting tool-setting" id="previewTrial" type="button">
+<div class="metric-icon orange">14</div>
+<div>
+<h3>Preview trial ending</h3>
+<p>See what remains available without purchase</p>
+</div>
+<span>›</span>
+</button>
+</div>
+<p class="prototype-note">These two controls are included only so prototype testers can review both flows.</p>
+</section>
+<section class="screen" id="tools" aria-labelledby="tools-title">
+<header class="topbar">
+<div>
+<div class="eyebrow">Private utilities</div>
+<h1 id="tools-title">Optional tools</h1>
+</div>
+<button class="back-btn" type="button" data-go="settings" aria-label="Back to settings">‹</button>
+</header>
+<p class="tool-intro">Open only what is useful to you. These tools never affect Daily Progress, and their inputs are processed locally.</p>
+<div class="tool-grid">
+<article class="tool-card">
+<div class="tool-top">
+<span class="tool-symbol">÷</span>
+<span class="auto">On-device</span>
+</div>
+<h2>BMI estimate</h2>
+<p>A height-and-weight reference with the standard adult screening category—not a target or diagnosis.</p>
+<button class="tool-action" type="button" data-open-tool="bmi">Open calculator</button>
+</article>
+<article class="tool-card">
+<div class="tool-top">
+<span class="tool-symbol">≈</span>
+<span class="auto">Estimate</span>
+</div>
+<h2>Resting energy</h2>
+<p>An equation-based estimate of energy used at rest—not a daily calorie target.</p>
+<button class="tool-action" type="button" data-open-tool="energy">Open calculator</button>
+</article>
+<article class="tool-card">
+<div class="tool-top">
+<span class="tool-symbol">◷</span>
+<span class="auto">Timer only</span>
+</div>
+<h2>Fasting timer</h2>
+<p>Track elapsed time without schedules, physiological claims, or pressure to continue.</p>
+<button class="tool-action" type="button" data-open-tool="fast">Open timer</button>
+</article>
+</div>
+<article class="method-card">
+<h2>Informational by design</h2>
+<p>Calculators show their methods and limitations. The timer records only the window you choose. None of these tools provides medical or dietary advice.</p>
+</article>
+</section>
+</div>
+
+<nav class="bottom-nav" aria-label="Main navigation">
+<button class="nav-btn active" data-screen="today">
+<b>◉</b>
+<span>Today</span>
+</button>
+<button class="nav-btn" data-screen="trends">
+<b>⌁</b>
+<span>Trends</span>
+</button>
+<button class="nav-btn" data-screen="measurements">
+<b><svg class="vector-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M8.5 6.5 12 3l3.5 3.5M8.5 17.5 12 21l3.5-3.5"/></svg></b>
+<span>Measure</span>
+</button>
+<button class="nav-btn" data-screen="plan">
+<b>☷</b>
+<span>Plan</span>
+</button>
+<button class="nav-btn" data-screen="settings">
+<b><svg class="vector-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10.1 3h3.8l.5 2.1c.6.2 1.2.4 1.7.7l1.8-1.1 2.7 2.7-1.1 1.8c.3.5.5 1.1.7 1.7l2.1.5v3.8l-2.1.5c-.2.6-.4 1.2-.7 1.7l1.1 1.8-2.7 2.7-1.8-1.1c-.5.3-1.1.5-1.7.7l-.5 2.1h-3.8l-.5-2.1c-.6-.2-1.2-.4-1.7-.7l-1.8 1.1-2.7-2.7 1.1-1.8c-.3-.5-.5-1.1-.7-1.7l-2.1-.5v-3.8l2.1-.5c.2-.6.4-1.2.7-1.7L3.4 7.4l2.7-2.7 1.8 1.1c.5-.3 1.1-.5 1.7-.7L10.1 3Z"/><circle cx="12" cy="12" r="3.2"/></svg></b>
+<span>Settings</span>
+</button>
+</nav>
+<div class="modal-wrap" id="progressModal" role="dialog" aria-modal="true" aria-labelledby="progressTitle">
+<div class="sheet">
+<div class="grabber">
+</div>
+<h2 id="progressTitle">How Daily Progress works</h2>
+<p>It is simply the average completion of the goals you chose for today. Partial count-based goals count proportionally and stop at 100%.</p>
+<div class="formula">78 + 100 + 63 + 0 + 0 = 241 ÷ 5 = 48%</div>
+<div class="promise-list" style="margin:12px 0">
+<div class="promise">
+<b>=</b>
+<div>
+<strong>Every goal counts evenly</strong>
+<span>Automatic and manual goals are treated the same.</span>
+</div>
+</div>
+<div class="promise">
+<b>♡</b>
+<div>
+<strong>It is not a health rating</strong>
+<span>No judgment, medical meaning, or penalty for a rest day.</span>
+</div>
+</div>
+</div>
+<button class="primary close-tool" type="button">Got it</button>
+</div>
+</div>
+<div class="modal-wrap" id="checkinModal" role="dialog" aria-modal="true" aria-labelledby="checkinTitle">
+<div class="sheet">
+<div class="grabber">
+</div>
+<h2 id="checkinTitle">Energy check-in</h2>
+<p>Choose the closest fit. Daily Progress records that you checked in—not whether your energy was high or low.</p>
+<div class="checkin-scale">
+<button class="checkin-option" type="button" data-energy="Very low" aria-label="Very low energy" aria-pressed="false">↘<span>Very low</span>
+</button>
+<button class="checkin-option" type="button" data-energy="Low" aria-label="Low energy" aria-pressed="false">↓<span>Low</span>
+</button>
+<button class="checkin-option" type="button" data-energy="Steady" aria-label="Steady energy" aria-pressed="false">—<span>Steady</span>
+</button>
+<button class="checkin-option" type="button" data-energy="High" aria-label="High energy" aria-pressed="false">↑<span>High</span>
+</button>
+<button class="checkin-option" type="button" data-energy="Very high" aria-label="Very high energy" aria-pressed="false">↗<span>Very high</span>
+</button>
+</div>
+<button class="primary" id="saveCheckin" type="button">Save check-in</button>
+<button class="secondary" id="clearCheckin" type="button" style="width:100%;margin-top:8px" hidden>Remove today’s check-in</button>
+<button class="secondary close-tool" type="button" style="width:100%;margin-top:8px">Cancel</button>
+</div>
+</div>
+<div class="modal-wrap" id="healthModal" role="dialog" aria-modal="true" aria-labelledby="healthTitle">
+<div class="sheet health-sheet">
+<div class="grabber">
+</div>
+<h2 id="healthTitle">Apple Health access</h2>
+<p id="healthIntro">These controls preview category-level choices. Safari cannot read Apple Health; the native app would process approved data on-device.</p>
+<div class="health-list">
+<button class="health-choice" type="button" aria-pressed="false" data-health-scope="activity">
+<b>↗</b>
+<span>
+<strong>Steps & distance</strong>
+<span>Read daily totals</span>
+</span>
+<i>✓</i>
+</button>
+<button class="health-choice" type="button" aria-pressed="false" data-health-scope="activity">
+<b>⌁</b>
+<span>
+<strong>Workouts</strong>
+<span>Read type and duration</span>
+</span>
+<i>✓</i>
+</button>
+<button class="health-choice" type="button" aria-pressed="false" data-health-scope="activity">
+<b>☾</b>
+<span>
+<strong>Sleep</strong>
+<span>Read duration</span>
+</span>
+<i>✓</i>
+</button>
+<button class="health-choice" type="button" aria-pressed="false" data-health-scope="measurement">
+<b><svg class="vector-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M8.5 6.5 12 3l3.5 3.5M8.5 17.5 12 21l3.5-3.5"/></svg></b>
+<span>
+<strong>Weight & height</strong>
+<span>Read approved measurements</span>
+</span>
+<i>✓</i>
+</button>
+<button class="health-choice" type="button" aria-pressed="false" data-health-scope="measurement">
+<b>⌖</b>
+<span>
+<strong>Waist circumference</strong>
+<span>Read when available</span>
+</span>
+<i>✓</i>
+</button>
+</div>
+<p class="safety-note" id="healthSafetyNote">The real iPhone app would show Apple’s system permission sheet after your choices. Manual entry remains available for every item.</p>
+<button class="secondary" id="clearHealthInModal" type="button" style="width:100%;margin-bottom:8px">Use manual tracking only</button>
+<button class="primary close-tool" id="saveHealthChoices" type="button">Save choices</button>
+</div>
+</div>
+<div class="modal-wrap" id="privacyModal" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
+<div class="sheet tool-sheet">
+<div class="grabber">
+</div>
+<h2 id="privacyTitle">How your data is handled</h2>
+<p>Plain-language details behind welltally’s privacy promise.</p>
+<div class="web-demo-note" role="note">
+<strong>This public prototype uses sample data</strong>
+<span>It does not connect to Apple Health or store real health records. The details below describe the planned native iPhone app.</span>
+</div>
+<div class="privacy-details">
+<div class="privacy-detail"><b>⌂</b><div><strong>Stored locally by welltally</strong><span>App records and analysis stay in the app’s local storage. welltally has no health-data server or account.</span></div></div>
+<div class="privacy-detail"><b>♥</b><div><strong>Apple Health is opt-in</strong><span>Only categories you explicitly approve are read, and permissions can be changed in Apple Health or Settings.</span></div></div>
+<div class="privacy-detail"><b>∅</b><div><strong>Not collected</strong><span>No location permission, usage analytics, advertising identifiers, or behavioral telemetry.</span></div></div>
+<div class="privacy-detail"><b>⇩</b><div><strong>Backups and exports are your choice</strong><span>Portable copies are created only when you request them and are saved wherever you choose. Apple device backups remain governed by your Apple settings.</span></div></div>
+<div class="privacy-detail"><b>×</b><div><strong>You can delete everything</strong><span>Delete controls remove welltally’s locally stored records. Restoring a purchase restores the unlock—not health records.</span></div></div>
+</div>
+<button class="primary close-tool" type="button">Done</button>
+</div>
+</div>
+<div class="modal-wrap" id="trialModal" role="dialog" aria-modal="true" aria-labelledby="trialTitle">
+<div class="sheet trial-sheet">
+<div class="grabber">
+</div>
+<div class="trial-lock" aria-hidden="true">✓</div>
+<div class="eyebrow">Your 14-day trial is complete</div>
+<h2 id="trialTitle" style="margin-top:6px">Your data is still yours.</h2>
+<p>Keep viewing, exporting, or deleting your records. A lifetime unlock resumes new tracking, insights, and optional tools.</p>
+<div class="trial-price">
+<strong>$9.99 once</strong>
+<span>Lifetime access · no subscription · restorable purchase</span>
+</div>
+<div class="stack-actions">
+<button class="primary" id="trialBuy" type="button">Unlock welltally</button>
+<button class="secondary" id="trialViewData" type="button">Not now — view my data</button>
+<button class="text-btn" id="trialRestore" type="button">Restore an earlier purchase</button>
+</div>
+</div>
+</div>
+<div class="modal-wrap" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+<div class="sheet">
+<div class="grabber">
+</div>
+<h2 id="modalTitle">Add a habit</h2>
+<p>Start with a simple goal. You can add detail later.</p>
+<input class="field" id="habitName" aria-label="Habit name" placeholder="e.g. Stretch for 10 minutes">
+<div class="goal-types">
+<button class="goal-type active">Complete</button>
+<button class="goal-type">Count</button>
+<button class="goal-type">Duration</button>
+</div>
+<button class="primary" id="saveHabit">Add to today</button>
+</div>
+</div>
+<div class="modal-wrap" id="measureModal" role="dialog" aria-modal="true" aria-labelledby="measureModalTitle">
+<div class="sheet">
+<div class="grabber">
+</div>
+<h2 id="measureModalTitle">Log a measurement</h2>
+<p>Use sample values only. This demo entry resets when the prototype reloads.</p>
+<select class="field" id="measureType" aria-label="Measurement type">
+<option>Weight</option>
+<option>Waist</option>
+<option>Chest</option>
+<option>Neck</option>
+<option>Hips</option>
+<option>Left arm</option>
+<option>Right arm</option>
+<option>Left forearm</option>
+<option>Right forearm</option>
+<option>Left thigh</option>
+<option>Right thigh</option>
+<option>Left calf</option>
+<option>Right calf</option>
+<option value="Custom">Custom label…</option>
+</select>
+<label class="field-label custom-measure-field" id="customMeasureField" hidden>Custom label<input class="field" id="customMeasureLabel" maxlength="32" placeholder="e.g. Shoulder">
+</label>
+<div style="height:9px">
+</div>
+<input class="field" id="measureAmount" inputmode="decimal" aria-label="Measurement value" placeholder="Enter value">
+<div class="goal-types measure-units">
+<button class="goal-type measure-unit active" data-unit="lb" type="button">lb</button>
+<button class="goal-type measure-unit" data-unit="kg" type="button">kg</button>
+<button class="goal-type measure-unit" data-unit="in" type="button" hidden>inches</button>
+<button class="goal-type measure-unit" data-unit="cm" type="button" hidden>cm</button>
+</div>
+<label class="field-label" id="measureConditionField" hidden>Measurement state · optional
+<select class="field" id="measureCondition">
+<option value="">Unspecified</option>
+<option value="Relaxed">Relaxed</option>
+<option value="Tensed">Tensed</option>
+</select>
+</label>
+<div style="height:12px">
+</div>
+<button class="primary" id="saveMeasurement" type="button">Save demo entry</button>
+</div>
+</div>
+<div class="modal-wrap" id="bmiModal" role="dialog" aria-modal="true" aria-labelledby="bmiTitle">
+<div class="sheet tool-sheet">
+<div class="grabber">
+</div>
+<h2 id="bmiTitle">BMI estimate</h2>
+<p>A screening reference based only on height and weight.</p>
+<div class="field-row">
+<label class="field-label">Height (in)<input class="field" id="bmiHeight" type="number" inputmode="decimal" min="36" max="96" value="74">
+</label>
+<label class="field-label">Weight (lb)<input class="field" id="bmiWeight" type="number" inputmode="decimal" min="0.1" step="0.1" value="186.4">
+</label>
+</div>
+<button class="primary" id="calculateBmi" type="button">Calculate estimate</button>
+<div class="result-box" id="bmiResult" hidden>
+<strong id="bmiNumber">—</strong>
+<span class="result-label" id="bmiCategory">Adult screening category: —</span>
+<span>Standard CDC range shown for context; no target weight is assigned.</span>
+<span id="bmiRangeResult" hidden>This result is far outside typical screening values. Check the entered units before interpreting it.</span>
+</div>
+<p class="safety-note">For adults age 20 and older. BMI is a screening measure, not a diagnosis. It does not distinguish fat, muscle, or bone and should be considered alongside other health factors. Discuss questions with a qualified healthcare professional.</p>
+<button class="secondary close-tool" type="button" style="width:100%">Close</button>
+</div>
+</div>
+<div class="modal-wrap" id="energyModal" role="dialog" aria-modal="true" aria-labelledby="energyTitle">
+<div class="sheet tool-sheet">
+<div class="grabber">
+</div>
+<h2 id="energyTitle">Resting energy estimate</h2>
+<p>An estimate of energy used at rest—not a daily calorie target.</p>
+<div class="field-row">
+<label class="field-label">Age<input class="field" id="energyAge" type="number" inputmode="numeric" min="18" step="1" value="35">
+</label>
+<label class="field-label">Height (in)<input class="field" id="energyHeight" type="number" inputmode="decimal" min="36" max="96" value="74">
+</label>
+</div>
+<label class="field-label">Weight (lb)<input class="field" id="energyWeight" type="number" inputmode="decimal" min="0.1" step="0.1" value="186.4">
+</label>
+<div style="height:9px">
+</div>
+<label class="field-label">Equation setting<select class="field" id="energyProfile">
+<option value="range">Show both estimates as a range</option>
+<option value="female">Use female constant</option>
+<option value="male">Use male constant</option>
+</select>
+</label>
+<div style="height:12px">
+</div>
+<button class="primary" id="calculateEnergy" type="button">Calculate estimate</button>
+<div class="result-box" id="energyResult" hidden>
+<strong id="energyNumber">—</strong>
+<span class="result-line">Estimated kcal used at rest per day.</span>
+<span class="result-line">This is not an intake recommendation.</span>
+<span id="energyRangeResult" hidden>Your age is outside the equation’s original study range, so this estimate may have greater uncertainty.</span>
+<span id="energyValueWarning" hidden>These inputs produce an implausible estimate. Check the entered units and values.</span>
+</div>
+<p class="safety-note">For adults age 18 and older. Calculated with the Mifflin–St Jeor equation, originally developed using adults ages 19–78. Predictive equations can differ meaningfully from measured resting energy and may not represent every body or circumstance.</p>
+<button class="secondary close-tool" type="button" style="width:100%">Close</button>
+</div>
+</div>
+<div class="modal-wrap" id="fastModal" role="dialog" aria-modal="true" aria-labelledby="fastTitle">
+<div class="sheet tool-sheet">
+<div class="grabber">
+</div>
+<h2 id="fastTitle">Fasting timer</h2>
+<p>Timer only. welltally does not choose or recommend a fasting schedule.</p>
+<label class="field-label">Optional target (hours)<input class="field" id="fastTarget" type="number" inputmode="decimal" min="1" max="24" step="0.5" placeholder="Choose your own, up to 24">
+</label>
+<div class="timer-display" id="fastClock" aria-live="polite">00:00:00</div>
+<div class="timer-caption" id="fastCaption">Not running · no target required</div>
+<div class="timer-actions">
+<button class="primary" id="startFast" type="button">Start timer</button>
+<button class="secondary" id="endFast" type="button">End timer</button>
+</div>
+<div class="setting-card">
+<div class="setting">
+<div class="metric-icon green">↻</div>
+<div>
+<h3>Schedule consistency</h3>
+<p>Optional · never affects Daily Progress</p>
+</div>
+<button class="toggle" id="fastConsistency" role="switch" aria-checked="false" aria-label="Track fasting schedule consistency">
+</button>
+</div>
+</div>
+<div class="fast-days" id="fastDays" hidden>
+<p>Choose the days that belong to your routine. Unplanned days never break continuity.</p>
+<div class="fast-day-row">
+<button class="fast-day" type="button" data-fast-day aria-pressed="false">M</button>
+<button class="fast-day" type="button" data-fast-day aria-pressed="false">T</button>
+<button class="fast-day" type="button" data-fast-day aria-pressed="false">W</button>
+<button class="fast-day" type="button" data-fast-day aria-pressed="false">T</button>
+<button class="fast-day" type="button" data-fast-day aria-pressed="false">F</button>
+<button class="fast-day" type="button" data-fast-day aria-pressed="false">S</button>
+<button class="fast-day" type="button" data-fast-day aria-pressed="false">S</button>
+</div>
+</div>
+<div class="consistency-card" id="consistencyCard" hidden>
+<strong id="fastConsistencySummary">Choose your planned days</strong>
+<span>Nothing is selected by default. Rest days and early stops never reset this summary, and no longest-fast records are kept.</span>
+</div>
+<p class="prototype-session-note">Prototype note: an active timer and its sample history reset if this page reloads.</p>
+<p class="safety-note">welltally records elapsed time only and does not determine whether fasting is appropriate for you. Fasting may be unsuitable with some health conditions, medications, pregnancy or breastfeeding, or a history of disordered eating.<span class="safety-break">Consult a qualified healthcare professional before changing your eating pattern.</span></p>
+<button class="secondary close-tool" type="button" style="width:100%">Close</button>
+</div>
+</div>
+<div class="modal-wrap" id="reminderModal" role="dialog" aria-modal="true" aria-labelledby="reminderTitle">
+<div class="sheet">
+<div class="grabber">
+</div>
+<h2 id="reminderTitle">Choose a reminder time</h2>
+<p>Reminders are optional. The native iPhone app would schedule them locally on your device.</p>
+<label class="field-label reminder-time">Reminder time<input class="field" id="reminderTime" type="time" value="08:00">
+</label>
+<button class="primary" id="saveReminder" type="button">Save reminder</button>
+<button class="secondary close-reminder" type="button" style="width:100%;margin-top:8px">Cancel</button>
+</div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite">
+</div>
+</section>
+</main>
+<script>(function(){var screens=document.querySelectorAll('.screen'),nav=document.querySelectorAll('.nav-btn');function go(id){var navId=id==='tools'?'settings':id;screens.forEach(function(s){s.classList.toggle('active',s.id===id)});nav.forEach(function(b){b.classList.toggle('active',b.dataset.screen===navId)});document.getElementById(id).scrollTop=0}nav.forEach(function(b){b.addEventListener('click',function(){go(b.dataset.screen)})});document.querySelectorAll('[data-go]').forEach(function(b){b.addEventListener('click',function(){go(b.dataset.go)})});
+var onboarding=document.getElementById('onboarding'),onboardSteps=Array.from(document.querySelectorAll('[data-onboard-step]')),onboardProgress=Array.from(document.querySelectorAll('.onboard-progress i')),onboardIndex=0,onboardBack=document.getElementById('onboardBack'),onboardNext=document.getElementById('onboardNext');function showOnboard(index){onboardIndex=Math.max(0,Math.min(onboardSteps.length-1,index));onboardSteps.forEach(function(step,i){step.classList.toggle('active',i===onboardIndex);if(i===onboardIndex)step.scrollTop=0});onboardProgress.forEach(function(bar,i){bar.classList.toggle('active',i<=onboardIndex)});onboardBack.hidden=onboardIndex===0;onboardNext.textContent=onboardIndex===onboardSteps.length-1?'Start 14-day trial':'Continue'}function closeOnboarding(){onboarding.classList.remove('open');go('today');toast('Your private trial is ready — no card required.')}onboardNext.onclick=function(){if(onboardIndex===onboardSteps.length-1)closeOnboarding();else showOnboard(onboardIndex+1)};onboardBack.onclick=function(){showOnboard(onboardIndex-1)};document.getElementById('skipOnboarding').onclick=function(){onboarding.classList.remove('open')};document.getElementById('replayOnboarding').onclick=function(){showOnboard(0);onboarding.classList.add('open')};document.querySelectorAll('.onboard-choice').forEach(function(b){b.onclick=function(){b.classList.toggle('active');b.setAttribute('aria-pressed',b.classList.contains('active')?'true':'false')}});document.querySelectorAll('.health-choice').forEach(function(b){b.onclick=function(){b.classList.toggle('active');b.setAttribute('aria-pressed',b.classList.contains('active')?'true':'false')}});document.getElementById('clearHealthChoices').onclick=function(){document.querySelectorAll('[data-onboard-step="3"] .health-choice').forEach(function(b){b.classList.remove('active');b.setAttribute('aria-pressed','false')});toast('Manual tracking selected. Apple Health can be connected later.')};
+function setMetricProgress(metric,value){var bounded=Math.max(0,Math.min(100,Number(value)||0));metric.dataset.progress=String(bounded);var bar=metric.querySelector('.progress');if(bar)bar.style.setProperty('--p',bounded+'%')}function score(){var metrics=Array.from(document.querySelectorAll('#metricList .metric[data-progress]')),total=metrics.reduce(function(sum,m){return sum+(Number(m.dataset.progress)||0)},0),v=metrics.length?Math.round(total/metrics.length):0;document.getElementById('score').textContent=v+'%';document.getElementById('scoreArc').style.strokeDashoffset=String(270-270*v/100);document.getElementById('scoreRing').setAttribute('aria-label','Daily Progress: '+v+' percent');var title=v>=80?'Strong follow-through':v>=50?'Steady momentum':'Building momentum',copy='Your completed and partial goals add up to '+v+'% today. No goal can count more than 100%.';document.getElementById('summaryTitle').textContent=title;document.getElementById('summaryCopy').textContent=copy}document.querySelectorAll('.metric .check:not([data-checkin]):not([data-fast-open])').forEach(function(b){b.addEventListener('click',function(){var m=b.closest('.metric'),wasDone=m.classList.contains('done');m.classList.toggle('done');setMetricProgress(m,wasDone?Number(m.dataset.baseProgress)||0:100);toast(wasDone?'Goal moved back to in progress.':'Goal completed — nice work.');score()})});var water=5;function setWater(n){water=Math.max(0,n);var p=Math.min(100,water/8*100),metric=document.getElementById('waterMetric');document.getElementById('waterValue').textContent=String(water);document.getElementById('waterProgress').style.setProperty('--p',p+'%');metric.dataset.progress=String(p);metric.classList.toggle('done',water>=8);if(water===8)toast('Water goal complete.');score()}document.getElementById('waterMinus').onclick=function(){setWater(water-1)};document.getElementById('waterPlus').onclick=function(){setWater(water+1)};
+var modal=document.getElementById('modal'),measureModal=document.getElementById('measureModal'),bmiModal=document.getElementById('bmiModal'),energyModal=document.getElementById('energyModal'),fastModal=document.getElementById('fastModal'),progressModal=document.getElementById('progressModal'),checkinModal=document.getElementById('checkinModal'),healthModal=document.getElementById('healthModal'),trialModal=document.getElementById('trialModal'),allModals=[modal,measureModal,bmiModal,energyModal,fastModal,progressModal,checkinModal,healthModal,trialModal];function openModal(){modal.classList.add('open');setTimeout(function(){document.getElementById('habitName').focus()},100)}function closeModals(){allModals.forEach(function(m){m.classList.remove('open')})}document.getElementById('openAdd').onclick=openModal;document.getElementById('newRoutine').onclick=openModal;allModals.forEach(function(m){m.addEventListener('click',function(e){if(e.target===m)closeModals()})});document.querySelectorAll('.close-tool').forEach(function(b){b.onclick=closeModals});document.querySelectorAll('[data-open-tool]').forEach(function(b){b.onclick=function(){var target={bmi:bmiModal,energy:energyModal,fast:fastModal}[b.dataset.openTool];target.classList.add('open')}});document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModals()});document.getElementById('explainProgress').onclick=function(){progressModal.classList.add('open')};document.getElementById('openCheckin').onclick=function(){checkinModal.classList.add('open')};document.getElementById('openHealthPermissions').onclick=function(){healthModal.classList.add('open')};document.getElementById('openMeasurementHealth').onclick=function(){healthModal.classList.add('open')};document.getElementById('previewTrial').onclick=function(){trialModal.classList.add('open')};
+document.querySelectorAll('#modal .goal-type').forEach(function(b){b.onclick=function(){document.querySelectorAll('#modal .goal-type').forEach(function(x){x.classList.remove('active')});b.classList.add('active')}});document.getElementById('saveHabit').onclick=function(){var input=document.getElementById('habitName'),name=input.value.trim()||'New health habit',a=document.createElement('article');a.className='metric';a.dataset.progress='0';a.dataset.baseProgress='0';a.innerHTML='<div class="metric-icon">＋</div><div class="metric-copy"><div class="metric-title"></div><div class="metric-value">Added just now · manual</div><div class="progress" style="--p:0%"><i></i></div></div><button class="check" aria-label="Mark goal complete">✓</button>';a.querySelector('.metric-title').textContent=name;a.querySelector('.check').onclick=function(){var wasDone=a.classList.contains('done');a.classList.toggle('done');setMetricProgress(a,wasDone?0:100);score()};document.getElementById('metricList').appendChild(a);input.value='';closeModals();go('today');score();toast(name+' added to today.')};document.querySelectorAll('.editRoutine').forEach(function(b){b.onclick=function(){toast('Routine editing would open here.')}});
+var weightValues={imperial:{value:'186.4',unit:'lb',delta:'↓ 3.2 lb in 30 days'},metric:{value:'84.6',unit:'kg',delta:'↓ 1.5 kg in 30 days'}};function findMeasureCard(name){return Array.from(document.querySelectorAll('#measureGrid .measure-card')).find(function(card){return card.querySelector('span').textContent.toLowerCase()===name.toLowerCase()})}function ensureFeaturedOption(name){var select=document.getElementById('featuredMeasurement'),exists=Array.from(select.options).some(function(option){return option.value.toLowerCase()===name.toLowerCase()});if(!exists){var option=document.createElement('option');option.textContent=name;select.appendChild(option)}}function renderFeaturedMeasurement(){var select=document.getElementById('featuredMeasurement'),name=select.value||'Weight',value='',unit='',delta='',card;if(name==='Weight'){var weight=currentUnitSystem==='metric'?weightValues.metric:weightValues.imperial;value=weight.value;unit=weight.unit;delta=weight.delta}else{card=findMeasureCard(name);if(!card)return;var parts=card.querySelector('strong').textContent.trim().split(/\s+/);unit=parts.pop();value=parts.join(' ');delta=card.querySelector('em').textContent}document.getElementById('featuredMeasureName').textContent=name;document.getElementById('weightValue').textContent=value;document.getElementById('weightUnit').textContent=unit;document.getElementById('weightDelta').textContent=delta;document.querySelector('.spark').setAttribute('aria-label',name+' trend')}function openMeasurement(custom){if(custom){document.getElementById('measureType').value='Custom'}syncMeasureUnit();measureModal.classList.add('open');setTimeout(function(){document.getElementById(custom?'customMeasureLabel':'measureAmount').focus()},100)}document.getElementById('openMeasure').onclick=function(){openMeasurement(false)};document.getElementById('customMeasure').onclick=function(){openMeasurement(true)};document.querySelectorAll('.measure-unit').forEach(function(b){b.onclick=function(){document.querySelectorAll('.measure-unit').forEach(function(x){x.classList.remove('active')});b.classList.add('active')}});document.getElementById('featuredMeasurement').onchange=renderFeaturedMeasurement;document.getElementById('saveMeasurement').onclick=function(){var selectedType=document.getElementById('measureType').value,customLabel=document.getElementById('customMeasureLabel').value.trim(),type=selectedType==='Custom'?customLabel:selectedType,raw=document.getElementById('measureAmount').value.trim(),amount=Number(raw),activeUnit=document.querySelector('.measure-unit.active'),unit=activeUnit?activeUnit.dataset.unit:'';if(selectedType==='Custom'&&!type){toast('Give this custom measurement a label first.');return}if(!raw||!Number.isFinite(amount)||amount<=0){toast('Enter a valid measurement first.');return}if(type.toLowerCase()==='weight'&&selectedType==='Custom'){toast('Weight already has its own measurement type.');return}if(type==='Weight'){var pounds=unit==='kg'?amount*2.2046226218:amount,kilograms=unit==='kg'?amount:amount/2.2046226218;weightValues.imperial={value:pounds.toFixed(1),unit:'lb',delta:'Logged just now · manual'};weightValues.metric={value:kilograms.toFixed(1),unit:'kg',delta:'Logged just now · manual'}}else{var inches=unit==='cm'?amount/2.54:amount,centimeters=unit==='cm'?amount:amount*2.54,card=findMeasureCard(type);if(!card){card=document.createElement('article');card.className='measure-card';card.innerHTML='<span></span><strong></strong><em></em>';card.querySelector('span').textContent=type;document.getElementById('measureGrid').appendChild(card)}card.dataset.imperial=inches.toFixed(1)+' in';card.dataset.metric=centimeters.toFixed(1)+' cm';card.querySelector('strong').textContent=currentUnitSystem==='metric'?card.dataset.metric:card.dataset.imperial;card.querySelector('em').textContent='Logged just now · manual';ensureFeaturedOption(type)}var featured=document.getElementById('featuredMeasurement');featured.value=type;renderFeaturedMeasurement();document.getElementById('measureAmount').value='';document.getElementById('customMeasureLabel').value='';closeModals();go('measurements');toast(type+' saved for this demo session.')};
+var selectedEnergy='';document.querySelectorAll('[data-energy]').forEach(function(b){b.onclick=function(){selectedEnergy=b.dataset.energy;document.querySelectorAll('[data-energy]').forEach(function(x){var active=x===b;x.classList.toggle('active',active);x.setAttribute('aria-pressed',active?'true':'false')})}});document.getElementById('saveCheckin').onclick=function(){if(!selectedEnergy){toast('Choose the closest energy level first.');return}var metric=document.getElementById('energyMetric');document.getElementById('energyCheckValue').textContent=selectedEnergy+' · logged just now';metric.classList.add('done');setMetricProgress(metric,100);document.getElementById('clearCheckin').hidden=false;closeModals();score();toast('Check-in saved privately.')};document.getElementById('clearCheckin').onclick=function(){selectedEnergy='';document.querySelectorAll('[data-energy]').forEach(function(b){b.classList.remove('active');b.setAttribute('aria-pressed','false')});var metric=document.getElementById('energyMetric');metric.classList.remove('done');setMetricProgress(metric,Number(metric.dataset.baseProgress)||0);document.getElementById('energyCheckValue').textContent='How are you feeling?';this.hidden=true;closeModals();score();toast('Today’s check-in was removed.')};
+var currentUnitSystem='imperial';function adultBmiCategory(value){if(value<18.5)return'Underweight · below 18.5';if(value<25)return'Healthy weight · 18.5–24.9';if(value<30)return'Overweight · 25.0–29.9';if(value<35)return'Class 1 obesity · 30.0–34.9';if(value<40)return'Class 2 obesity · 35.0–39.9';return'Class 3 obesity (severe obesity) · 40.0 or greater'}document.getElementById('calculateBmi').onclick=function(){var h=Number(document.getElementById('bmiHeight').value),w=Number(document.getElementById('bmiWeight').value),valid=currentUnitSystem==='metric'?h>=90&&h<=250&&w>=23&&w<=360:h>=36&&h<=96&&w>=50&&w<=800;if(!Number.isFinite(h)||!Number.isFinite(w)||!valid){toast('Enter a valid height and weight.');return}var result=currentUnitSystem==='metric'?w/Math.pow(h/100,2):703*w/(h*h);document.getElementById('bmiNumber').textContent=result.toFixed(1);document.getElementById('bmiCategory').textContent='Adult screening category: '+adultBmiCategory(result);document.getElementById('bmiResult').hidden=false};
+document.getElementById('calculateEnergy').onclick=function(){var age=Number(document.getElementById('energyAge').value),h=Number(document.getElementById('energyHeight').value),w=Number(document.getElementById('energyWeight').value),profile=document.getElementById('energyProfile').value,valid=currentUnitSystem==='metric'?h>=90&&h<=250&&w>=23&&w<=360:h>=36&&h<=96&&w>=50&&w<=800;if(!Number.isFinite(age)||!Number.isFinite(h)||!Number.isFinite(w)||age<18||age>100||!valid){toast('Enter valid adult calculation inputs.');return}var weightKg=currentUnitSystem==='metric'?w:w/2.2046226218,heightCm=currentUnitSystem==='metric'?h:h*2.54,base=10*weightKg+6.25*heightCm-5*age,female=Math.round(base-161),male=Math.round(base+5),label=profile==='female'?female+' kcal/day':profile==='male'?male+' kcal/day':Math.min(female,male)+'–'+Math.max(female,male)+' kcal/day';document.getElementById('energyNumber').textContent=label;document.getElementById('energyResult').hidden=false};
+var fastStarted=0,fastInterval=null,fastTargetSeconds=0,fastTargetNotified=false,fastLastElapsed=0,fastTodayEnabled=false;function formatTime(total){var hours=Math.floor(total/3600),minutes=Math.floor(total%3600/60),seconds=total%60;return [hours,minutes,seconds].map(function(n){return String(n).padStart(2,'0')}).join(':')}function showFastToday(copy){fastTodayEnabled=true;document.getElementById('fastToday').hidden=false;document.getElementById('fastTodayValue').textContent=copy}function updateFast(){if(!fastStarted)return;var elapsed=Math.max(0,Math.floor((Date.now()-fastStarted)/1000));document.getElementById('fastClock').textContent=formatTime(elapsed);showFastToday(formatTime(elapsed)+' elapsed · excluded from Daily Progress');if(fastTargetSeconds){var remaining=Math.max(0,fastTargetSeconds-elapsed);document.getElementById('fastCaption').textContent=elapsed<fastTargetSeconds?formatTime(remaining)+' until your selected end time':'Selected end time reached · end whenever you choose';if(elapsed>=fastTargetSeconds&&!fastTargetNotified){fastTargetNotified=true;toast('Your selected end time is here. End whenever you choose.')}}else document.getElementById('fastCaption').textContent='Running · no target set'}document.getElementById('openFastToday').onclick=function(){fastModal.classList.add('open')};document.getElementById('startFast').onclick=function(){if(fastStarted){toast('The timer is already running.');return}var raw=document.getElementById('fastTarget').value.trim(),hours=raw?Number(raw):0;if(raw&&(!Number.isFinite(hours)||hours<1||hours>24)){toast('Choose an optional target from 1 to 24 hours.');return}fastTargetSeconds=Math.round(hours*3600);fastTargetNotified=false;fastLastElapsed=0;fastStarted=Date.now();updateFast();fastInterval=setInterval(updateFast,1000);toast('Timer started. End it whenever you choose.')};document.getElementById('endFast').onclick=function(){if(!fastStarted){toast('The timer is not running.');return}fastLastElapsed=Math.max(0,Math.floor((Date.now()-fastStarted)/1000));updateFast();clearInterval(fastInterval);fastInterval=null;fastStarted=0;document.getElementById('fastCaption').textContent='Session ended · saved for this demo session';showFastToday('Ended today · '+formatTime(fastLastElapsed)+' · excluded from Daily Progress');toast('Timing session ended. Daily Progress was not affected.')};
+var data={Consistency:{v:'84',u:'%',d:'↑ 8% vs last month',y:27,l:'M0 104 L35 96 L70 99 L105 75 L140 82 L175 62 L210 69 L245 42 L280 49 L330 27'},Sleep:{v:'7.4',u:' hr',d:'↑ 24 min vs last month',y:42,l:'M0 77 L35 91 L70 65 L105 81 L140 70 L175 55 L210 62 L245 48 L280 58 L330 42'},Steps:{v:'8,416',u:' avg',d:'↑ 11% vs last month',y:35,l:'M0 99 L35 70 L70 85 L105 52 L140 79 L175 46 L210 64 L245 33 L280 51 L330 35'},Distance:{v:'18.6',u:' mi / week',d:'↑ 2.1 mi vs last month',y:44,l:'M0 96 L35 88 L70 91 L105 73 L140 68 L175 72 L210 59 L245 54 L280 49 L330 44'},Workouts:{v:'4.2',u:' / week',d:'↑ 0.7 vs last month',y:51,l:'M0 102 L35 102 L70 81 L105 81 L140 63 L175 82 L210 63 L245 63 L280 51 L330 51'}};document.querySelectorAll('.metric-tab').forEach(function(b){b.onclick=function(){document.querySelectorAll('.metric-tab').forEach(function(x){x.classList.remove('active')});b.classList.add('active');var x=data[b.dataset.metric];document.getElementById('chartName').textContent=b.dataset.metric;document.getElementById('chartValue').textContent=x.v;document.getElementById('chartUnit').textContent=x.u;document.getElementById('chartDelta').textContent=x.d;document.getElementById('chartLine').setAttribute('d',x.l);document.getElementById('chartArea').setAttribute('d',x.l+' L330 116 L0 116 Z');document.getElementById('chartDot').setAttribute('cy',String(x.y))}});document.querySelectorAll('.period-btn').forEach(function(b){b.onclick=function(){document.querySelectorAll('.period-btn').forEach(function(x){x.classList.remove('active')});b.classList.add('active');toast(b.dataset.period+' view selected.')}});
+document.querySelectorAll('.toggle').forEach(function(b){b.onclick=function(){b.classList.toggle('on');var on=b.classList.contains('on');b.setAttribute('aria-checked',on?'true':'false');if(b.id==='fastConsistency'){document.getElementById('consistencyCard').hidden=!on;document.getElementById('fastDays').hidden=!on;if(on&&!fastStarted&&!fastLastElapsed)showFastToday('Schedule tracking on · excluded from Daily Progress');if(!on&&!fastStarted&&!fastLastElapsed){fastTodayEnabled=false;document.getElementById('fastToday').hidden=true}toast(on?'Schedule consistency is on. Rest days never reset it.':'Schedule consistency is off.')}}});document.querySelectorAll('[data-fast-day]').forEach(function(b){b.onclick=function(){b.classList.toggle('active');b.setAttribute('aria-pressed',b.classList.contains('active')?'true':'false')}});
+function setFieldLabel(input,text){var label=input.closest('label');if(label&&label.firstChild)label.firstChild.nodeValue=text}function syncMeasureUnit(){var type=document.getElementById('measureType').value,isWeight=type==='Weight',wanted=isWeight?(currentUnitSystem==='metric'?'kg':'lb'):(currentUnitSystem==='metric'?'cm':'in');document.getElementById('customMeasureField').hidden=type!=='Custom';document.querySelectorAll('.measure-unit').forEach(function(b){var compatible=isWeight?(b.dataset.unit==='lb'||b.dataset.unit==='kg'):(b.dataset.unit==='in'||b.dataset.unit==='cm');b.hidden=!compatible;b.classList.toggle('active',compatible&&b.dataset.unit===wanted)})}function applyUnits(preference,announce){currentUnitSystem=preference==='metric'?'metric':'imperial';document.getElementById('unitPreference').value=preference;document.getElementById('onboardUnits').value=preference;var metric=currentUnitSystem==='metric';document.querySelectorAll('#measureGrid .measure-card[data-metric]').forEach(function(card){card.querySelector('strong').textContent=metric?card.dataset.metric:card.dataset.imperial});renderFeaturedMeasurement();var stepValue=document.querySelector('#metricList .metric .metric-value');if(stepValue)stepValue.textContent=metric?'7,842 steps · 5.8 km today':'7,842 steps · 3.6 mi today';data.Distance=metric?{v:'29.9',u:' km / week',d:'↑ 3.4 km vs last month',y:44,l:'M0 96 L35 88 L70 91 L105 73 L140 68 L175 72 L210 59 L245 54 L280 49 L330 44'}:{v:'18.6',u:' mi / week',d:'↑ 2.1 mi vs last month',y:44,l:'M0 96 L35 88 L70 91 L105 73 L140 68 L175 72 L210 59 L245 54 L280 49 L330 44'};var bmiH=document.getElementById('bmiHeight'),bmiW=document.getElementById('bmiWeight'),energyH=document.getElementById('energyHeight'),energyW=document.getElementById('energyWeight');bmiH.value=metric?'188':'74';bmiW.value=metric?'84.6':'186.4';energyH.value=metric?'188':'74';energyW.value=metric?'84.6':'186.4';bmiH.min=energyH.min=metric?'90':'36';bmiH.max=energyH.max=metric?'250':'96';bmiW.min=energyW.min=metric?'23':'50';bmiW.max=energyW.max=metric?'360':'800';setFieldLabel(bmiH,metric?'Height (cm)':'Height (in)');setFieldLabel(bmiW,metric?'Weight (kg)':'Weight (lb)');setFieldLabel(energyH,metric?'Height (cm)':'Height (in)');setFieldLabel(energyW,metric?'Weight (kg)':'Weight (lb)');document.getElementById('bmiResult').hidden=true;document.getElementById('energyResult').hidden=true;syncMeasureUnit();if(announce)toast(preference==='automatic'?'Automatic units: Imperial for this iPhone.':(metric?'Metric units selected.':'Imperial units selected.'))}document.getElementById('unitPreference').onchange=function(){applyUnits(this.value,true)};document.getElementById('onboardUnits').onchange=function(){applyUnits(this.value,false)};document.getElementById('measureType').onchange=function(){syncMeasureUnit();if(this.value==='Custom')document.getElementById('customMeasureLabel').focus()};
+document.getElementById('explainInsights').onclick=function(){toast('Insights compare your own patterns; they are not medical advice.')};document.getElementById('exportBackup').onclick=function(){toast('Encrypted backup would open the iPhone share sheet.')};document.getElementById('importBackup').onclick=function(){toast('Choose a welltally backup from Files.')};document.getElementById('deleteLocalData').onclick=function(){toast('A final confirmation would appear. Nothing is deleted in this prototype.')};function openPurchase(){closeModals();toast('The App Store purchase sheet would open — $9.99 once.')}function restorePurchase(){toast('Checking this Apple Account for a lifetime unlock.')}document.getElementById('unlockOnce').onclick=openPurchase;document.getElementById('trialBuy').onclick=openPurchase;document.getElementById('restorePurchase').onclick=restorePurchase;document.getElementById('trialRestore').onclick=restorePurchase;document.getElementById('trialViewData').onclick=function(){closeModals();go('measurements');toast('Viewing and exporting remain available without purchase.')};var timer;function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(timer);timer=setTimeout(function(){t.classList.remove('show')},2200)}applyUnits('automatic',false);showOnboard(0);score()}());</script><script>
+(function () {
+  "use strict";
+
+  function byId(id) {
+    return document.getElementById(id);
+  }
+
+  function announce(message) {
+    var toast = byId("toast");
+    toast.textContent = message;
+    toast.classList.add("show");
+    window.clearTimeout(announce.timer);
+    announce.timer = window.setTimeout(function () {
+      toast.classList.remove("show");
+    }, 2400);
+  }
+
+  var appearanceMedia = window.matchMedia("(prefers-color-scheme: dark)");
+
+  function savedAppearance() {
+    try {
+      return window.localStorage.getItem("welltallyAppearance") || "system";
+    } catch (error) {
+      return "system";
+    }
+  }
+
+  function applyAppearance(preference, remember) {
+    var choice = ["system", "light", "dark"].includes(preference) ? preference : "system";
+    var resolved = choice === "system" ? (appearanceMedia.matches ? "dark" : "light") : choice;
+    document.documentElement.dataset.theme = resolved;
+    byId("appearancePreference").value = choice;
+    var themeMeta = document.querySelector('meta[name="theme-color"]');
+    if (themeMeta) themeMeta.content = resolved === "dark" ? "#101713" : "#f4f5f1";
+    if (remember) {
+      try {
+        window.localStorage.setItem("welltallyAppearance", choice);
+      } catch (error) {}
+      announce(choice === "system" ? "Appearance follows this device." : choice.charAt(0).toUpperCase() + choice.slice(1) + " appearance selected.");
+    }
+  }
+
+  byId("appearancePreference").addEventListener("change", function () {
+    applyAppearance(this.value, true);
+  });
+  var appearanceChangeHandler = function () {
+    if (byId("appearancePreference").value === "system") applyAppearance("system", false);
+  };
+  if (appearanceMedia.addEventListener) appearanceMedia.addEventListener("change", appearanceChangeHandler);
+  else if (appearanceMedia.addListener) appearanceMedia.addListener(appearanceChangeHandler);
+  applyAppearance(savedAppearance(), false);
+
+  var privacyModal = byId("privacyModal");
+  byId("openPrivacyDetails").addEventListener("click", function () {
+    privacyModal.classList.add("open");
+  });
+  privacyModal.addEventListener("click", function (event) {
+    if (event.target === privacyModal) privacyModal.classList.remove("open");
+  });
+  privacyModal.querySelectorAll(".close-tool").forEach(function (button) {
+    button.addEventListener("click", function () {
+      privacyModal.classList.remove("open");
+    });
+  });
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") privacyModal.classList.remove("open");
+  });
+
+  function healthChoiceName(button) {
+    return button.querySelector("strong").textContent.trim();
+  }
+
+  function setHealthChoice(button, selected) {
+    button.classList.toggle("active", selected);
+    button.setAttribute("aria-pressed", selected ? "true" : "false");
+  }
+
+  function updateHealthStatus() {
+    var selected = new Set(
+      Array.from(document.querySelectorAll(".health-choice.active")).map(healthChoiceName)
+    );
+    var status = byId("healthConnectionStatus");
+    status.textContent = selected.size
+      ? selected.size + (selected.size === 1 ? " category selected" : " categories selected")
+      : "Not connected";
+    var measurementStatus = byId("measurementTrackingStatus");
+    var measurementEnabled = selected.has("Weight & height") || selected.has("Waist circumference");
+    measurementStatus.textContent = measurementEnabled ? "Health enabled" : "Manual";
+    measurementStatus.classList.toggle("health-enabled", measurementEnabled);
+  }
+
+  var healthModal = byId("healthModal");
+
+  function openHealthChoices(mode) {
+    var measurementsOnly = mode === "measurements";
+    healthModal.dataset.mode = measurementsOnly ? "measurements" : "all";
+    byId("healthTitle").textContent = measurementsOnly ? "Measurement tracking" : "Apple Health access";
+    byId("healthIntro").textContent = measurementsOnly
+      ? "Manual entry is always available. Choose whether the native app may also read supported measurements from Apple Health."
+      : "These controls preview category-level choices. Safari cannot read Apple Health; the native app would process approved data on-device.";
+    healthModal.querySelectorAll(".health-choice").forEach(function (button) {
+      button.hidden = measurementsOnly && button.dataset.healthScope !== "measurement";
+    });
+    byId("healthSafetyNote").textContent = measurementsOnly
+      ? "Weight, height, and waist are the supported measurement categories shown here. The real iPhone app would request each permission through Apple’s system sheet."
+      : "The real iPhone app would show Apple’s system permission sheet after your choices. Manual entry remains available for every item.";
+    byId("clearHealthInModal").textContent = measurementsOnly
+      ? "Use manual measurements only"
+      : "Use manual tracking only";
+    healthModal.classList.add("open");
+  }
+
+  byId("openHealthPermissions").onclick = function () {
+    openHealthChoices("all");
+  };
+  byId("openMeasurementHealth").onclick = function () {
+    openHealthChoices("measurements");
+  };
+  byId("customMeasure").onclick = function () {
+    openHealthChoices("measurements");
+  };
+
+  document.querySelectorAll(".health-choice").forEach(function (button) {
+    button.addEventListener("click", function () {
+      var selected = button.classList.contains("active");
+      var name = healthChoiceName(button);
+      document.querySelectorAll(".health-choice").forEach(function (peer) {
+        if (healthChoiceName(peer) === name) setHealthChoice(peer, selected);
+      });
+      updateHealthStatus();
+    });
+  });
+  byId("clearHealthChoices").addEventListener("click", function () {
+    document.querySelectorAll(".health-choice").forEach(function (button) {
+      setHealthChoice(button, false);
+    });
+    updateHealthStatus();
+  });
+  byId("clearHealthInModal").addEventListener("click", function () {
+    var measurementsOnly = healthModal.dataset.mode === "measurements";
+    healthModal.querySelectorAll(".health-choice").forEach(function (button) {
+      if (!measurementsOnly || button.dataset.healthScope === "measurement") {
+        var name = healthChoiceName(button);
+        document.querySelectorAll(".health-choice").forEach(function (peer) {
+          if (healthChoiceName(peer) === name) setHealthChoice(peer, false);
+        });
+      }
+    });
+    updateHealthStatus();
+    announce(measurementsOnly ? "Manual measurement entry selected." : "Manual tracking selected.");
+  });
+  byId("saveHealthChoices").addEventListener("click", updateHealthStatus);
+  updateHealthStatus();
+
+  byId("replayOnboarding").addEventListener("click", function () {
+    document.querySelectorAll(".onboard-choice,.health-choice").forEach(function (button) {
+      setHealthChoice(button, false);
+    });
+    byId("onboardHeight").value = "";
+    byId("onboardWeight").value = "";
+    updateHealthStatus();
+  });
+
+  byId("onboardNext").addEventListener("click", function () {
+    if (this.textContent === "Start 14-day trial" && !byId("onboarding").classList.contains("open")) {
+      applySetupValues();
+      window.setTimeout(function () {
+        announce("Setup preview complete. A sample dashboard is loaded for testing.");
+      }, 0);
+    }
+  });
+
+  function displayedUnitSystem() {
+    var label = byId("bmiHeight").closest("label");
+    return label && label.firstChild && label.firstChild.nodeValue.indexOf("cm") !== -1
+      ? "metric"
+      : "imperial";
+  }
+
+  function clearCalculatorCaps() {
+    ["bmiHeight", "bmiWeight", "energyHeight", "energyWeight"].forEach(function (id) {
+      var input = byId(id);
+      input.removeAttribute("max");
+      input.min = "0.1";
+      input.step = "0.1";
+    });
+    byId("energyAge").removeAttribute("max");
+  }
+
+  function regionalUnitSystem() {
+    var locale = (window.Intl && Intl.DateTimeFormat().resolvedOptions().locale) ||
+      navigator.language || "en-US";
+    var match = locale.match(/[-_]([A-Z]{2})\b/i);
+    var region = match ? match[1].toUpperCase() : "US";
+    return ["US", "LR", "MM"].includes(region) ? "imperial" : "metric";
+  }
+
+  function updateOnboardUnitLabels() {
+    var metric = displayedUnitSystem() === "metric";
+    byId("onboardHeightLabel").textContent = "Height (" + (metric ? "cm" : "in") + ") · optional";
+    byId("onboardWeightLabel").textContent = "Weight (" + (metric ? "kg" : "lb") + ") · optional";
+  }
+
+  function installRegionalUnitHandling() {
+    var settingsSelect = byId("unitPreference");
+    var onboardingSelect = byId("onboardUnits");
+    var originalSettingsHandler = settingsSelect.onchange;
+    var originalOnboardingHandler = onboardingSelect.onchange;
+
+    function applyRequested(source, shouldAnnounce) {
+      var requested = source.value;
+      if (requested === "automatic") {
+        var resolved = regionalUnitSystem();
+        onboardingSelect.value = resolved;
+        originalOnboardingHandler.call(onboardingSelect);
+        settingsSelect.value = "automatic";
+        onboardingSelect.value = "automatic";
+        if (shouldAnnounce) {
+          announce("Automatic units: " + (resolved === "metric" ? "Metric" : "Imperial") + " for this device.");
+        }
+      } else if (source === settingsSelect) {
+        originalSettingsHandler.call(settingsSelect);
+      } else {
+        originalOnboardingHandler.call(onboardingSelect);
+      }
+      window.setTimeout(function () {
+        clearCalculatorCaps();
+        updateOnboardUnitLabels();
+        formatAllMeasurementValues();
+        renderFeaturedMeasurement();
+      }, 0);
+    }
+
+    settingsSelect.onchange = function () {
+      applyRequested(settingsSelect, true);
+    };
+    onboardingSelect.onchange = function () {
+      applyRequested(onboardingSelect, false);
+    };
+    onboardingSelect.value = "automatic";
+    applyRequested(onboardingSelect, false);
+  }
+
+  function adultBmiCategory(value) {
+    if (value < 18.5) return "Underweight · below 18.5";
+    if (value < 25) return "Healthy weight · 18.5–24.9";
+    if (value < 30) return "Overweight · 25.0–29.9";
+    if (value < 35) return "Class 1 obesity · 30.0–34.9";
+    if (value < 40) return "Class 2 obesity · 35.0–39.9";
+    return "Class 3 obesity (severe obesity) · 40.0 or greater";
+  }
+
+  byId("calculateBmi").onclick = function () {
+    var height = Number(byId("bmiHeight").value);
+    var weight = Number(byId("bmiWeight").value);
+    if (!Number.isFinite(height) || !Number.isFinite(weight) || height <= 0 || weight <= 0) {
+      announce("Enter positive height and weight values.");
+      return;
+    }
+    var result = displayedUnitSystem() === "metric"
+      ? weight / Math.pow(height / 100, 2)
+      : 703 * weight / (height * height);
+    if (!Number.isFinite(result)) {
+      announce("Check the values and displayed units, then try again.");
+      return;
+    }
+    byId("bmiNumber").textContent = result.toFixed(1);
+    byId("bmiCategory").textContent = "Adult screening category: " + adultBmiCategory(result);
+    byId("bmiRangeResult").hidden = result >= 10 && result <= 100;
+    byId("bmiResult").hidden = false;
+  };
+
+  byId("calculateEnergy").onclick = function () {
+    var age = Number(byId("energyAge").value);
+    var height = Number(byId("energyHeight").value);
+    var weight = Number(byId("energyWeight").value);
+    var profile = byId("energyProfile").value;
+    if (!Number.isFinite(age) || !Number.isInteger(age) || age < 18 ||
+        !Number.isFinite(height) || !Number.isFinite(weight) || height <= 0 || weight <= 0) {
+      announce("Enter a whole-number adult age and positive height and weight values.");
+      return;
+    }
+    var metric = displayedUnitSystem() === "metric";
+    var weightKg = metric ? weight : weight / 2.2046226218;
+    var heightCm = metric ? height : height * 2.54;
+    var base = 10 * weightKg + 6.25 * heightCm - 5 * age;
+    var female = Math.round(base - 161);
+    var male = Math.round(base + 5);
+    var implausible = !Number.isFinite(female) || !Number.isFinite(male) ||
+      Math.min(female, male) <= 0 || Math.max(female, male) > 10000;
+    var result = implausible
+      ? "Unable to estimate"
+      : profile === "female"
+        ? female + " kcal/day"
+        : profile === "male"
+          ? male + " kcal/day"
+          : Math.min(female, male) + "–" + Math.max(female, male) + " kcal/day";
+    byId("energyNumber").textContent = result;
+    byId("energyRangeResult").hidden = age >= 19 && age <= 78;
+    byId("energyValueWarning").hidden = !implausible;
+    byId("energyResult").hidden = false;
+  };
+
+  [byId("unitPreference"), byId("onboardUnits")].forEach(function (select) {
+    select.addEventListener("change", function () {
+      window.setTimeout(function () {
+        clearCalculatorCaps();
+        formatAllMeasurementValues();
+        renderFeaturedMeasurement();
+      }, 0);
+    });
+  });
+  clearCalculatorCaps();
+
+  var localWeightValues = {
+    imperial: { value: "186.4", unit: "lb", detail: "↓ 3.2 lb in 30 days" },
+    metric: { value: "84.6", unit: "kg", detail: "↓ 1.5 kg in 30 days" }
+  };
+
+  function applySetupValues() {
+    var metric = displayedUnitSystem() === "metric";
+    var heightInput = byId("onboardHeight");
+    var weightInput = byId("onboardWeight");
+    var height = Number(heightInput.value);
+    var weight = Number(weightInput.value);
+
+    heightInput.removeAttribute("aria-invalid");
+    weightInput.removeAttribute("aria-invalid");
+
+    if (heightInput.value.trim()) {
+      if (Number.isFinite(height) && height > 0) {
+        byId("bmiHeight").value = String(height);
+        byId("energyHeight").value = String(height);
+      } else {
+        heightInput.setAttribute("aria-invalid", "true");
+      }
+    }
+
+    if (weightInput.value.trim()) {
+      if (Number.isFinite(weight) && weight > 0) {
+        var pounds = metric ? weight * 2.2046226218 : weight;
+        var kilograms = metric ? weight : weight / 2.2046226218;
+        localWeightValues.imperial = {
+          value: pounds.toFixed(1), unit: "lb", detail: "Entered during setup · demo session"
+        };
+        localWeightValues.metric = {
+          value: kilograms.toFixed(1), unit: "kg", detail: "Entered during setup · demo session"
+        };
+        byId("bmiWeight").value = String(weight);
+        byId("energyWeight").value = String(weight);
+      } else {
+        weightInput.setAttribute("aria-invalid", "true");
+      }
+    }
+
+    renderFeaturedMeasurement();
+  }
+
+  function measurementCardName(card) {
+    return card.firstElementChild.textContent.trim();
+  }
+
+  function findMeasurementCard(name) {
+    return Array.from(document.querySelectorAll("#measureGrid .measure-card")).find(function (card) {
+      return measurementCardName(card).toLowerCase() === name.toLowerCase();
+    });
+  }
+
+  function splitMeasurementValue(strong) {
+    if (strong.querySelector(".measure-value-number")) return;
+    var match = strong.textContent.trim().match(/^(.+?)\s+(in|cm|lb|kg)$/i);
+    if (!match) return;
+    strong.textContent = "";
+    var number = document.createElement("span");
+    number.className = "measure-value-number";
+    number.textContent = match[1];
+    var unit = document.createElement("small");
+    unit.className = "measure-value-unit";
+    unit.textContent = match[2];
+    strong.append(number, unit);
+  }
+
+  function formatAllMeasurementValues() {
+    document.querySelectorAll("#measureGrid .measure-card strong").forEach(splitMeasurementValue);
+  }
+
+  function renderFeaturedMeasurement() {
+    var name = byId("featuredMeasurement").value || "Weight";
+    var system = displayedUnitSystem();
+    var value;
+    var unit;
+    var detail;
+    if (name === "Weight") {
+      value = localWeightValues[system].value;
+      unit = localWeightValues[system].unit;
+      detail = localWeightValues[system].detail;
+    } else {
+      var card = findMeasurementCard(name);
+      if (!card) return;
+      var raw = card.dataset[system] || "";
+      var match = raw.match(/^(.+?)\s+(in|cm|lb|kg)$/i);
+      if (!match) return;
+      value = match[1];
+      unit = match[2];
+      detail = card.querySelector("em").textContent;
+    }
+    byId("featuredMeasureName").textContent = name;
+    byId("weightValue").textContent = value;
+    byId("weightUnit").textContent = unit;
+    byId("weightDelta").textContent = detail;
+    document.querySelector(".spark").setAttribute("aria-label", name + " trend");
+  }
+
+  var measureGrid = byId("measureGrid");
+  var measureObserver = new MutationObserver(function () {
+    measureObserver.disconnect();
+    formatAllMeasurementValues();
+    measureObserver.observe(measureGrid, { childList: true, subtree: true, characterData: true });
+  });
+  formatAllMeasurementValues();
+  measureObserver.observe(measureGrid, { childList: true, subtree: true, characterData: true });
+  byId("featuredMeasurement").onchange = renderFeaturedMeasurement;
+
+  function syncMeasurementCondition() {
+    var isWeight = byId("measureType").value === "Weight";
+    byId("measureConditionField").hidden = isWeight;
+    if (isWeight) byId("measureCondition").value = "";
+  }
+
+  byId("measureType").addEventListener("change", syncMeasurementCondition);
+  [byId("openMeasure"), byId("customMeasure")].forEach(function (button) {
+    button.addEventListener("click", function () {
+      window.setTimeout(syncMeasurementCondition, 0);
+    });
+  });
+  syncMeasurementCondition();
+
+  var pendingMeasurement = null;
+  byId("saveMeasurement").addEventListener("click", function () {
+    var selectedType = byId("measureType").value;
+    var customLabel = byId("customMeasureLabel").value.trim();
+    var type = selectedType === "Custom" ? customLabel : selectedType;
+    var raw = byId("measureAmount").value.trim();
+    var amount = Number(raw);
+    var unitButton = document.querySelector(".measure-unit.active");
+    var unit = unitButton ? unitButton.dataset.unit : "";
+    var valid = Boolean(type) && raw && Number.isFinite(amount) && amount > 0 &&
+      !(selectedType === "Custom" && type.toLowerCase() === "weight");
+    pendingMeasurement = valid ? {
+      type: type,
+      amount: amount,
+      unit: unit,
+      condition: byId("measureCondition").value
+    } : null;
+  }, true);
+
+  byId("saveMeasurement").addEventListener("click", function () {
+    var saved = pendingMeasurement;
+    pendingMeasurement = null;
+    if (!saved) return;
+    window.setTimeout(function () {
+      if (saved.type === "Weight") {
+        var pounds = saved.unit === "kg" ? saved.amount * 2.2046226218 : saved.amount;
+        var kilograms = saved.unit === "kg" ? saved.amount : saved.amount / 2.2046226218;
+        localWeightValues.imperial = { value: pounds.toFixed(1), unit: "lb", detail: "Logged just now · manual" };
+        localWeightValues.metric = { value: kilograms.toFixed(1), unit: "kg", detail: "Logged just now · manual" };
+      } else {
+        var card = findMeasurementCard(saved.type);
+        if (card) {
+          card.dataset.condition = saved.condition || "Unspecified";
+          card.querySelector("em").textContent = saved.condition
+            ? saved.condition + " · Logged just now"
+            : "State not specified · Logged just now";
+        }
+      }
+      byId("measureCondition").value = "";
+      formatAllMeasurementValues();
+      renderFeaturedMeasurement();
+      announce(saved.type + " saved for this demo session.");
+    }, 0);
+  });
+
+  function updateFastDaySummary() {
+    var count = document.querySelectorAll("[data-fast-day].active").length;
+    byId("fastConsistencySummary").textContent = count
+      ? count + (count === 1 ? " planned day selected" : " planned days selected")
+      : "Choose your planned days";
+  }
+  document.querySelectorAll("[data-fast-day]").forEach(function (button) {
+    button.addEventListener("click", updateFastDaySummary);
+  });
+  byId("fastConsistency").addEventListener("click", updateFastDaySummary);
+  byId("endFast").addEventListener("click", function () {
+    if (byId("fastCaption").textContent.indexOf("Session ended") === 0) {
+      byId("fastCaption").textContent = "Session ended · saved for this demo session";
+    }
+  });
+
+  var demoWater = Number(byId("waterValue").textContent) || 0;
+
+  function updatePrototypeScore() {
+    var metrics = Array.from(document.querySelectorAll("#metricList .metric[data-progress]"));
+    var total = metrics.reduce(function (sum, metric) {
+      return sum + (Number(metric.dataset.progress) || 0);
+    }, 0);
+    var value = metrics.length ? Math.round(total / metrics.length) : 0;
+    byId("score").textContent = value + "%";
+    byId("scoreArc").style.strokeDashoffset = String(270 - 270 * value / 100);
+    byId("scoreRing").setAttribute("aria-label", "Daily Progress: " + value + " percent");
+    byId("summaryTitle").textContent = value >= 80
+      ? "Strong follow-through"
+      : value >= 50 ? "Steady momentum" : "Building momentum";
+    byId("summaryCopy").textContent = "Your completed and partial goals add up to " + value + "% today. No goal can count more than 100%.";
+  }
+
+  function setPrototypeWater(value) {
+    demoWater = Math.max(0, value);
+    var progress = Math.min(100, demoWater / 8 * 100);
+    var metric = byId("waterMetric");
+    byId("waterValue").textContent = String(demoWater);
+    byId("waterProgress").style.setProperty("--p", progress + "%");
+    metric.dataset.progress = String(progress);
+    metric.classList.toggle("done", demoWater >= 8);
+    if (demoWater === 8) announce("Water goal complete.");
+    updatePrototypeScore();
+  }
+
+  byId("waterMinus").onclick = function () {
+    setPrototypeWater(demoWater - 1);
+  };
+  byId("waterPlus").onclick = function () {
+    setPrototypeWater(demoWater + 1);
+  };
+
+  var reminderModal = byId("reminderModal");
+  var reminderToggle = byId("reminderToggle");
+
+  function closeReminder() {
+    reminderModal.classList.remove("open");
+  }
+
+  reminderToggle.onclick = function () {
+    if (reminderToggle.classList.contains("on")) {
+      reminderToggle.classList.remove("on");
+      reminderToggle.setAttribute("aria-checked", "false");
+      byId("reminderSummary").textContent = "Off until you choose a time";
+      announce("Daily reminder turned off.");
+    } else {
+      reminderModal.classList.add("open");
+    }
+  };
+
+  byId("saveReminder").addEventListener("click", function () {
+    var value = byId("reminderTime").value;
+    if (!value) {
+      announce("Choose a reminder time first.");
+      return;
+    }
+    var parts = value.split(":");
+    var date = new Date(2000, 0, 1, Number(parts[0]), Number(parts[1]));
+    var label = date.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+    reminderToggle.classList.add("on");
+    reminderToggle.setAttribute("aria-checked", "true");
+    byId("reminderSummary").textContent = "Daily at " + label;
+    closeReminder();
+    announce("Reminder preview set for " + label + ".");
+  });
+  byId("reminderModal").addEventListener("click", function (event) {
+    if (event.target === reminderModal) closeReminder();
+  });
+  document.querySelectorAll(".close-reminder").forEach(function (button) {
+    button.addEventListener("click", closeReminder);
+  });
+
+  var pendingDialogTrigger = null;
+  var dialogOpeners = new WeakMap();
+  document.addEventListener("click", function (event) {
+    var button = event.target.closest("button");
+    if (button) pendingDialogTrigger = button;
+  }, true);
+
+  function openDialogElement() {
+    return document.querySelector(".modal-wrap.open") ||
+      (byId("onboarding").classList.contains("open") ? byId("onboarding") : null);
+  }
+
+  function focusableElements(dialog) {
+    return Array.from(dialog.querySelectorAll('button:not([hidden]):not([disabled]),input:not([hidden]):not([disabled]),select:not([hidden]):not([disabled]),[tabindex]:not([tabindex="-1"])'))
+      .filter(function (element) { return element.getClientRects().length > 0; });
+  }
+
+  function syncDialogAccessibility() {
+    var openDialog = openDialogElement();
+    document.querySelectorAll(".screen,.bottom-nav").forEach(function (element) {
+      element.inert = Boolean(openDialog);
+    });
+    document.querySelectorAll(".modal-wrap").forEach(function (dialog) {
+      var open = dialog.classList.contains("open");
+      dialog.setAttribute("aria-hidden", open ? "false" : "true");
+      if (open && dialog.dataset.focusManaged !== "true") {
+        dialog.dataset.focusManaged = "true";
+        if (pendingDialogTrigger && !dialog.contains(pendingDialogTrigger)) {
+          dialogOpeners.set(dialog, pendingDialogTrigger);
+        }
+        window.setTimeout(function () {
+          var heading = dialog.querySelector("h2");
+          if (heading) {
+            heading.setAttribute("tabindex", "-1");
+            heading.focus({ preventScroll: true });
+          }
+        }, 0);
+      } else if (!open && dialog.dataset.focusManaged === "true") {
+        delete dialog.dataset.focusManaged;
+        var opener = dialogOpeners.get(dialog);
+        if (opener && opener.isConnected) opener.focus({ preventScroll: true });
+      }
+    });
+    var onboardingOpen = byId("onboarding").classList.contains("open");
+    byId("onboarding").setAttribute("aria-hidden", onboardingOpen ? "false" : "true");
+  }
+
+  document.querySelectorAll(".modal-wrap,#onboarding").forEach(function (dialog) {
+    new MutationObserver(syncDialogAccessibility).observe(dialog, { attributes: true, attributeFilter: ["class"] });
+  });
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && reminderModal.classList.contains("open")) closeReminder();
+    if (event.key !== "Tab") return;
+    var dialog = openDialogElement();
+    if (!dialog) return;
+    var focusable = focusableElements(dialog);
+    if (!focusable.length) return;
+    var first = focusable[0];
+    var last = focusable[focusable.length - 1];
+    if (!focusable.includes(document.activeElement)) {
+      event.preventDefault();
+      (event.shiftKey ? last : first).focus();
+    } else if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
+
+  installRegionalUnitHandling();
+  updateOnboardUnitLabels();
+  syncDialogAccessibility();
+  updateFastDaySummary();
+})();
+
+if ("serviceWorker" in navigator && location.protocol === "https:") {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker.register("./sw.js").catch(function () {});
+  });
+}
+</script></body></html>
